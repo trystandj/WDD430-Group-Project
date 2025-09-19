@@ -1,5 +1,6 @@
 import Image from "next/image";
 import styles from "./page.module.css";
+import BusinessSpotlight from "./landingComponents/BusinessSpotlight/BusinessSpotlight";
 
 export default function Home() {
   return (
@@ -13,6 +14,15 @@ export default function Home() {
           height={38}
           priority
         />
+        
+          <p className="text-xl text-gray-800 md:text-3xl md:leading-normal">
+            <strong>Welcome to Acme.</strong> This is the example for the{' '}
+            <a href="https://nextjs.org/learn/" className="text-blue-500">
+              Next.js Learn Course
+            </a>
+            
+            , brought to you by Vercel.
+          </p>
         <ol>
           <li>
             Get started by editing <code>src/app/page.tsx</code>.
@@ -45,6 +55,9 @@ export default function Home() {
             Read our docs
           </a>
         </div>
+
+        <BusinessSpotlight />
+
       </main>
       <footer className={styles.footer}>
         <a
