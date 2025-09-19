@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import SpotlightCard from "./SpotlightCard";
 import { spotlightData } from "./spotlightData";
+import styles from "./Card.module.css";
 
 export default function BusinessSpotlight() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -19,16 +20,33 @@ export default function BusinessSpotlight() {
   const currentBusiness = spotlightData[currentIndex];
 
   return (
-    <section className="relative bg-gray-50 flex flex-col items-center justify-center h-[800px] overflow-hidden">
-      <h2 className="text-3xl font-bold text-center mb-10 text-gray-800">
-        Business Spotlight
-      </h2>
-      <div className="flex justify-center w-full max-w-4xl px-6">
-        <SpotlightCard
-          name={currentBusiness.name}
-          description={currentBusiness.description}
-          images={currentBusiness.images}
-        />
+    <section className={styles.BusinessSpotlight}>
+      <div className={styles.Card_Container}>
+        {/* Header */}
+        <header>
+          <span className="uppercase text-sm tracking-widest text-gray-500">
+            Item Spotlight
+          </span>
+          <h2 className="text-4xl font-bold text-gray-800 mt-2">
+            Browse Some of Our Featured Items
+          </h2>
+        </header>
+
+        {/* Cards grid */}
+        <div>
+          {currentBusiness.images.slice(0, 6).map((imageData, idx) => (
+            <div
+              key={idx}
+              data-card="true"
+            >
+              <SpotlightCard
+                name={currentBusiness.name}
+                description={currentBusiness.description}
+                images={[imageData]} 
+              />
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );

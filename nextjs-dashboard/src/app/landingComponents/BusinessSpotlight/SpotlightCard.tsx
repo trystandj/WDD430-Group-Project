@@ -1,34 +1,68 @@
 import Image from "next/image";
+import Link from "next/link";
+import styles from "./Card.module.css";
+
+type ImageData = {
+  src: string;
+  link: string;
+};
 
 type SpotlightCardProps = {
   name: string;
   description: string;
-  images: string[]; 
+  images: ImageData[];
 };
 
 export default function SpotlightCard({ name, description, images }: SpotlightCardProps) {
+  
+  const displayImages = [...images.slice(0, 6)];
+  while (displayImages.length < 6) {
+    displayImages.push({ src: "", link: "" });
+  }
+
   return (
-    <div className="rounded-2xl shadow-md overflow-hidden bg-white p-6 flex flex-col items-center text-center">
-      {/* Title */}
-      <h3 className="text-xl font-semibold">{name}</h3>
-
-      {/* Description */}
-      <p className="text-gray-600 text-sm mt-2 mb-4">{description}</p>
-
-      {/* Image gallery */}
-      <div className="flex gap-3 justify-center flex-wrap">
-        {images.map((src, idx) => (
-          <div key={idx} className="w-28 h-28 relative">
-          <Image
-            src={src}
-            alt={`${name} image ${idx + 1}`}
-            width={80}
-            height={80}
-            className="object-cover rounded-md"
+    <Link href={displayImages[0]?.link || "#"} className={styles.cardLink}>
+      <div className={styles.card}>
+        
+        {displayImages[0]?.src && (
+          // Using external image source (Picsum/placeholder images)
+          <img
+            src={displayImages[0].src}
+            width={300}
+            height={300}
+            alt={name}
+            style={{
+              objectFit: "cover",
+              borderRadius: "8px",
+              transition: "transform 0.2s ease",
+            }}
+            className={styles.cardImage}
           />
-          </div>
-        ))}
+          
+      
+          // Use this when switching back to local images in /public folder
+          /* 
+          <Image
+            src={displayImages[0].src}
+            width={300}
+            height={300}
+            alt={name}
+            style={{
+              objectFit: "cover",
+              borderRadius: "8px",
+              transition: "transform 0.2s ease",
+            }}
+            className={styles.cardImage}
+          />
+          */
+        )}
+
+        {/* Content */}
+        <div className={styles.card__content}>
+          <h3 className={styles.card__title}>{name}</h3>
+          <p className={styles.card__description}>{description}</p>
+        </div>
       </div>
-    </div>
+    </Link>
   );
 }
