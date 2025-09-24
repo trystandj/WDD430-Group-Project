@@ -71,6 +71,8 @@
     align-items: center;
 }
 
+
+
 /* Business Spotlight Section */
 .BusinessSpotlight {
   padding: 2rem;
@@ -95,14 +97,14 @@
   text-transform: uppercase;
   font-size: 0.875rem;
   letter-spacing: 0.1em;
-  color: #ffffff;
+  color: #73A073;
   margin-bottom: 0.5rem;
 }
 
 .BusinessSpotlight header h2 {
   font-size: 2.25rem;
   font-weight: bold;
-  color: #ffffff;
+  color: #73A073;
   margin: 0;
   line-height: 1.2;
 }
