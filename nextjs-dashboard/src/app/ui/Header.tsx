@@ -13,10 +13,11 @@ function Navigation({mobile}: NavigationProps) {
     return (
         <div className={styles.linksContainer}>
             <nav className={clsx(mobile ? styles.linksMobile : styles.links)}>
-                <Link href="/">page 1</Link>
-                <Link href="/">page 2</Link>
-                <Link href="/">page 3</Link>
-                <Link href="/">page 4</Link>
+                <Link href="/">Home</Link>
+                <Link href="/">Products</Link>
+                {
+                    mobile && <Link href="/">Login</Link>
+                }
             </nav>
         </div>
     )
@@ -25,15 +26,12 @@ function Navigation({mobile}: NavigationProps) {
 export default function Header() {
     const [visible, setVisible] = useState(false);
 
-    useEffect(()=> {
-        console.log(visible);
-    }, [visible])
-
     return (
         <header className={styles.container}>
             <div>
                 <Link href="/">
-                    <h1>Logo</h1>
+                    <span>Handcrafted</span>
+                    <h1>Haven</h1>
                 </Link>
             </div>
             <Navigation mobile={false}/>
@@ -43,7 +41,7 @@ export default function Header() {
             
             <div>
                 <Link href="/">
-                    <button className={styles.button}>Learn More</button>
+                    <button className={styles.button}>Login</button>
                 </Link>
                 <button className={styles.hamButton} onClick={() => setVisible(!visible)}>
                     <img width={100} height={100} src="/icons/ham-icon.svg" alt="ham-button"/>
