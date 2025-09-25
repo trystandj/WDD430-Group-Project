@@ -1,10 +1,17 @@
 import Image from "next/image";
 import styles from "./page.module.css";
+import BusinessSpotlight from "./landingComponents/BusinessSpotlight/page";
 
 export default function Home() {
   return (
     <div className={styles.page}>
       <main className={styles.main}>
+
+       
+
+        <BusinessSpotlight />
+
+      <div className={styles.container} />
         <Image
           className={styles.logo}
           src="/next.svg"
@@ -19,6 +26,7 @@ export default function Home() {
           </li>
           <li>Save and see your changes instantly.</li>
         </ol>
+
       </main>
     </div>
   );
