@@ -14,7 +14,7 @@ function Navigation({mobile}: NavigationProps) {
         <div className={styles.linksContainer}>
             <nav className={clsx(mobile ? styles.linksMobile : styles.links)}>
                 <Link href="/">Home</Link>
-                <Link href="/">Products</Link>
+                <Link href="/sellers">Sellers</Link>
                 {
                     mobile && <Link href="/">Login</Link>
                 }
