@@ -1,4 +1,4 @@
-import { fetchSellerById } from "@/lib/data";
+import { fetchSellerById } from "../../../lib/data";
 import { notFound } from "next/navigation";
 import './seller-detail.css';
 
