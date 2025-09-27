@@ -3,12 +3,12 @@ import clientPromise from "@/lib/mongodb";
 export async function GET() {
   try {
     const client = await clientPromise;
-    const db = client.db("admin"); // or replace with your db name
+    const db = client.db("admin");
     const result = await db.command({ ping: 1 });
 
     return Response.json({
       ok: true,
-      message: "✅ Connected to MongoDB!",
+      message: "Connected to MongoDB!",
       result,
     });
   } catch (err) {

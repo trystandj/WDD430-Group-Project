@@ -4,12 +4,12 @@ import { MongoClient } from "mongodb";
 const uri = process.env.MONGODB_URI as string;
 
 if (!uri) {
-  throw new Error("❌ Please add your Mongo URI to .env.local");
+  throw new Error(" Please add your Mongo URI to .env.local");
 }
 
-// Extend global type for Node.js
+
 declare global {
-  // eslint-disable-next-line no-var
+ 
   var _mongoClientPromise: Promise<MongoClient> | undefined;
 }
 
