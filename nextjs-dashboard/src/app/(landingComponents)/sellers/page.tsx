@@ -1,4 +1,4 @@
-import { fetchSellerProfiles } from "@/lib/data";
+import { fetchSellerProfiles } from "../../lib/data";
 import Link from "next/link";
 import './sellers.css';
 
