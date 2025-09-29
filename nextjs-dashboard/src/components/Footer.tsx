@@ -1,8 +1,13 @@
 "use client";
+
 import React from "react";
 import CTAButton from "./CTAButton";
 
-const Footer: React.FC = () => {
+interface FooterProps {
+  showCTA?: boolean; // default to false
+}
+
+const Footer: React.FC<FooterProps> = ({ showCTA = false }) => {
   const handleClick = () => {
     alert("CTA Button clicked!");
   };
@@ -13,7 +18,8 @@ const Footer: React.FC = () => {
         <h2 className="text-xl font-bold">Group Project</h2>
         <p className="text-gray-400">© 2025 All rights reserved.</p>
       </div>
-      <CTAButton text="Join Now" onClick={handleClick} />
+
+      {showCTA && <CTAButton text="Join Now" onClick={handleClick} />}
     </footer>
   );
 };

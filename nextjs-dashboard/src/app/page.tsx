@@ -1,7 +1,14 @@
+"use client";
+
 import Image from "next/image";
+import Link from "next/link";
 import styles from "./page.module.css";
+import CTAButton from "../components/CTAButton";
 
 export default function Home() {
+  const user =
+    typeof window !== "undefined" ? localStorage.getItem("user") : null;
+
   return (
     <div className={styles.page}>
       <main className={styles.main}>
@@ -13,12 +20,26 @@ export default function Home() {
           height={38}
           priority
         />
-        <ol>
-          <li>
-            Get started by editing <code>src/app/page.tsx</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+
+        {user ? (
+          <div className="flex flex-col items-center gap-4">
+            <h1>Welcome, {user}! 🎉</h1>
+            <CTAButton text="Do Something Cool" />
+            <button
+              onClick={() => {
+                localStorage.removeItem("user");
+                window.location.reload();
+              }}
+              className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition"
+            >
+              Logout
+            </button>
+          </div>
+        ) : (
+          <Link href="/login">
+            <CTAButton text="Login" />
+          </Link>
+        )}
       </main>
     </div>
   );
