@@ -1,5 +1,16 @@
+export interface SellerProfile {
+  _id?: string;
+  id: number; 
+  name: string;
+  email: string;
+  bio: string;
+  avatarUrl: string;
+  location: string;
+  joinedAt: Date;
+}
 
 export interface SellerItem {
+  sellerId: number; 
   title: string;
   description: string;
   price: number;
@@ -8,14 +19,10 @@ export interface SellerItem {
   createdAt: Date;
 }
 
-export interface SellerProfile {
-  _id?: string;
-    id: number; 
-  name: string;
-  email: string;
-  bio: string;
-  avatarUrl: string;
-  location: string;
-  joinedAt: Date;
-  items: SellerItem[];
+export interface SellerStory {
+  sellerId: number;
+  title: string;
+  content: string; 
+  imageUrl?: string; 
+  createdAt: Date;
 }

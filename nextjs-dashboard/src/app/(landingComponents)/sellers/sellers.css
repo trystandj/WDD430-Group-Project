@@ -162,3 +162,178 @@
     text-align: center;
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*  Narratives*/
+
+.artisan-narratives {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+  background: linear-gradient(135deg, #fdfbf7 0%, #f8f4ed 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.artisan-narratives::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -10%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(210, 180, 140, 0.1) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.artisan-narratives__heading {
+  font-size: 2.75rem;
+  font-weight: 300;
+  text-align: center;
+  margin-bottom: 3rem;
+  color: #3d2817;
+  letter-spacing: 0.5px;
+  position: relative;
+  font-family: 'Georgia', serif;
+}
+
+.artisan-narratives__heading::after {
+  content: '';
+  display: block;
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #d4a574, transparent);
+  margin: 1rem auto 0;
+}
+
+
+
+.artisan-tale {
+  background: #ffffff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(61, 40, 23, 0.08);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  border: 1px solid rgba(212, 165, 116, 0.15);
+}
+
+
+.artisan-tale:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 40px rgba(61, 40, 23, 0.15);
+}
+
+
+.artisan-tale__body {
+  padding: 2rem;
+}
+
+.artisan-tale__headline {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #3d2817;
+  margin-bottom: 1.25rem;
+  line-height: 1.3;
+  font-family: 'Georgia', serif;
+  position: relative;
+  padding-bottom: 0.75rem;
+}
+
+.artisan-tale__headline::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 40px;
+  height: 2px;
+  background: #d4a574;
+}
+
+.artisan-tale__text {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: #5a4a3a;
+  margin-bottom: 1rem;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+
+
+
+.artisan-tale__timestamp {
+  font-size: 0.875rem;
+  color: #9b8578;
+  font-style: italic;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(212, 165, 116, 0.2);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.artisan-tale__timestamp::before {
+  content: '✦';
+  color: #d4a574;
+  font-size: 0.75rem;
+}
+
+.artisan-narratives__empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  font-size: 1.125rem;
+  color: #9b8578;
+  padding: 3rem;
+  font-style: italic;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 12px;
+  border: 2px dashed rgba(212, 165, 116, 0.3);
+}
+
+
+@media (max-width: 768px) {
+  .artisan-narratives {
+    padding: 3rem 1.5rem;
+  }
+
+  .artisan-narratives__heading {
+    font-size: 2.25rem;
+  }
+
+  .artisan-narratives__container {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .artisan-tale__body {
+    padding: 1.5rem;
+  }
+
+  .artisan-tale__headline {
+    font-size: 1.35rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .artisan-narratives__heading {
+    font-size: 1.875rem;
+  }
+
+  .artisan-tale__body {
+    padding: 1.25rem;
+  }
+}
