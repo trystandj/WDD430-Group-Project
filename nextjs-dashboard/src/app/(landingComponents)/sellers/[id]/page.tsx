@@ -4,9 +4,9 @@ import "./seller-detail.css";
 import SellerItems from "../../../ui/sellers/SellerItems";
 import SellerStory from "../../../ui/sellers/SellerStory";
 
-export default async function Page({ params }: { params: { id: string } }) {
-  const { id } = params;
 
+export default async function Page(props: { params: Promise<{ id: string }> }) {
+  const { id } = await props.params;
 
   const seller = await fetchSellerById(id);
   if (!seller) {
@@ -14,9 +14,7 @@ export default async function Page({ params }: { params: { id: string } }) {
   }
 
   const items = await fetchItemsBySellerId(seller.id);
-
-  const stories = await fetchStoriesBySellerId(seller.id); 
-
+  const stories = await fetchStoriesBySellerId(seller.id);
 
   return (
     <main className="seller-detail-page">
@@ -39,7 +37,6 @@ export default async function Page({ params }: { params: { id: string } }) {
         </div>
 
         <SellerStory stories={stories} />
-
         <SellerItems items={items} />
       </div>
     </main>
