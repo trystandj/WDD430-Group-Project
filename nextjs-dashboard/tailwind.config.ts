@@ -17,6 +17,15 @@ const config: Config = {
           500: '#0070F3',
           600: '#2F6FEB',
         },
+        // project palette
+        surface: '#ffffff',
+        'surface-dark': '#0b1220',
+        fg: '#1f2937',
+        'fg-dark': '#e6eef8',
+        muted: '#6b7280',
+        'muted-dark': '#9ca3af',
+        primary: '#0070F3',
+        star: '#f59e0b',
       },
     },
     keyframes: {
