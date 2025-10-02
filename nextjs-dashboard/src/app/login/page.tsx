@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import CTAButton from "../../components/CTAButton";
+import CTAButton from "../components/CTAButton";
 
 export default function LoginPage() {
   const router = useRouter();
