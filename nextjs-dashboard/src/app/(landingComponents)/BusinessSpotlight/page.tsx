@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import SpotlightCard from "./SpotlightCard";
 import { spotlightData } from "./spotlightData";
 import styles from "./Card.module.css";
+import Image from "next/image";
 
 export default function BusinessSpotlight() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -21,9 +22,23 @@ export default function BusinessSpotlight() {
 
   return (
     <section className={styles.BusinessSpotlight}>
+
+      
       <div className={styles.Card_Container}>
         {/* Header */}
+        {/* Hero Image */} 
+      
         <header>
+          <Image
+
+          src="/hero.jpg"
+          alt="Hero image"
+          width={699} //3 233
+          height={466} //2
+          fetchPriority="high"
+          className="hidden md:block"
+        />
+
           <span className="uppercase text-sm tracking-widest text-gray-500">
             Item Spotlight
           </span>
