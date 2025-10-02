@@ -1,0 +1,180 @@
+
+
+.sellers-page {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.sellers-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.sellers-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #000;
+  margin: 0;
+}
+
+/* View Toggle Buttons */
+.view-toggle {
+  display: flex;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  background: white;
+}
+
+.view-btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  background: white;
+  color: #6b7280;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.view-btn:hover {
+  background: #f9fafb;
+}
+
+.view-btn.active {
+  background: #3b82f6;
+  color: white;
+}
+
+.view-btn:not(:last-child) {
+  border-right: 1px solid #e5e7eb;
+}
+
+/* Sellers Container - Grid View */
+.sellers-container.grid-view {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+
+/* Seller Card - Grid View */
+.grid-view .seller-card {
+  display: block;
+  text-decoration: none;
+  border: 1px solid #e5e7eb;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  background: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+}
+
+.grid-view .seller-card:hover {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  transform: scale(1.02);
+}
+
+
+/* Seller Content */
+.seller-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  height: 100%;
+}
+
+/* Seller Avatar - Grid View */
+.grid-view .seller-avatar {
+  width: 6rem;
+  height: 6rem;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid #e5e7eb;
+  margin-bottom: 1rem;
+}
+
+/* Seller Name - Grid View */
+.grid-view .seller-name {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #000;
+  margin: 0 0 0.5rem 0;
+}
+
+
+/* Seller Bio - Grid View */
+.grid-view .seller-bio {
+  font-size: 0.875rem;
+  color: #1f2937;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* No Sellers Message */
+.no-sellers {
+  color: #6b7280;
+  text-align: center;
+  grid-column: 1 / -1;
+  font-size: 1rem;
+  margin: 2rem 0;
+}
+
+
+@media (max-width: 768px) {
+  .sellers-page {
+    padding: 1rem;
+  }
+  
+  .sellers-title {
+    font-size: 2rem;
+  }
+  
+  .sellers-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+  
+  .sellers-container.grid-view {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+}
+
+@media (max-width: 480px) {
+  .sellers-container.gallery-view {
+    justify-content: center;
+  }
+  
+  .view-toggle {
+    width: 100%;
+  }
+  
+  .view-btn {
+    flex: 1;
+    text-align: center;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

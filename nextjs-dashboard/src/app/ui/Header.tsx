@@ -14,7 +14,7 @@ function Navigation({mobile}: NavigationProps) {
         <div className={styles.linksContainer}>
             <nav className={clsx(mobile ? styles.linksMobile : styles.links)}>
                 <Link href="/">Home</Link>
-                <Link href="/">Products</Link>
+                <Link href="/sellers">Sellers</Link>
                 {
                     mobile && <Link href="/">Login</Link>
                 }
@@ -40,7 +40,7 @@ export default function Header() {
             }
             
             <div>
-                <Link href="/">
+                <Link href="/login">
                     <button className={styles.button}>Login</button>
                 </Link>
                 <button className={styles.hamButton} onClick={() => setVisible(!visible)}>
