@@ -3,7 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./page.module.css";
-import CTAButton from "./components/CTAButton";
+import CTAButton from "./components/CTAButton"
+
 import BusinessSpotlight from "./(landingComponents)/BusinessSpotlight/page";
 
 export default function Home() {
