@@ -3,10 +3,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./page.module.css";
+
 import CTAButton from "./components/CTAButton";
 
 import ItemSpotlightUI from "./(landingComponents)/ItemSpotlight/page";
 import HeroImage from "./ui/HeroImage";
+
 
 export default function Home() {
   const user =
