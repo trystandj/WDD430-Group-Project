@@ -1,6 +1,5 @@
 "use client"
 import React, { useEffect, useState, useRef } from 'react'
-import Link from 'next/link'
 import ReviewSummary from '@/app/components/[reviews]/reviewSummary'
 import ReviewList from '@/app/components/[reviews]/reviewList'
 
@@ -16,20 +15,25 @@ interface Review {
   createdAt: string
 }
 
-export default function ReviewsClient({ productId, itemId, sellerId, initialReviews = [], userId = null, username = null }: {
+declare global {
+  interface Window { __reviewsFetched?: Set<string> }
+}
+
+export default function ReviewsClient({ productId, itemId, initialReviews = [] }: {
   productId: string
   itemId?: number
-  sellerId?: number
   initialReviews?: Review[]
-  userId?: string | null
-  username?: string | null
 }) {
   const [reviews, setReviews] = useState<Review[]>(initialReviews)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
   const fetchedRef = useRef(false)
-  const globalFetched = (global as any).__reviewsFetched ||= new Set<string>()
+  // use a typed window-scoped cache to avoid repeated fetches across components
+  if (typeof window !== 'undefined' && !window.__reviewsFetched) {
+    window.__reviewsFetched = new Set<string>()
+  }
+  const globalFetched = typeof window !== 'undefined' ? window.__reviewsFetched! : new Set<string>()
 
   useEffect(() => {
     const fetchKey = typeof itemId === 'number' ? `item:${itemId}` : `product:${productId}`
@@ -110,13 +114,10 @@ export default function ReviewsClient({ productId, itemId, sellerId, initialRevi
 
   useEffect(() => {
     const handler = (e: Event) => {
-      const ev = e as CustomEvent
-      try {
-        const newReview = ev.detail as Review
-        if (newReview && newReview._id) {
-          setReviews((prev) => [newReview, ...prev])
-        }
-      } catch (err) {
+      const ev = e as CustomEvent<Review>
+      const newReview = ev.detail
+      if (newReview && newReview._id) {
+        setReviews((prev) => [newReview, ...prev])
       }
     }
     if (typeof window !== 'undefined') {

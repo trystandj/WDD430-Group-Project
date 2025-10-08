@@ -1,28 +1,41 @@
 import { describe, it, expect, vi } from 'vitest'
-import handlerIndex from '@/app/api/reviews/index'
-import handlerProduct from '@/app/api/reviews/[productId]'
+import handlerIndex from '@/app/api/reviews/test-compat/index'
+import handlerProduct from '@/app/api/reviews/test-compat/productId'
 
 // Mock a minimal clientPromise that returns a fake db with collection methods
-const inserted: any[] = []
+const inserted: Record<string, unknown>[] = []
 const fakeCollection = () => ({
-  insertOne: async (doc: any) => {
+  insertOne: async (doc: Record<string, unknown>) => {
     const _id = `fakeid_${inserted.length}`
-    inserted.push({ ...doc, _id })
+    inserted.push({ ...(doc as Record<string, unknown>), _id })
     return { insertedId: _id }
   },
   find: () => ({ sort: () => ({ toArray: async () => inserted }) }),
 })
 
-vi.mock('@/lib/mongodb', () => ({
+vi.mock('@/app/lib/mongodb', () => ({
   default: Promise.resolve({ db: () => ({ collection: (_name: string) => fakeCollection() }) }),
 }))
 
-const makeReqRes = (opts: any = {}) => {
-  const req: any = { method: opts.method || 'GET', body: opts.body || {}, query: opts.query || {} }
-  const res: any = {
-    status: vi.fn().mockReturnThis(),
-    json: vi.fn().mockReturnThis(),
-    end: vi.fn().mockReturnThis(),
+// Clear in-memory fake DB between tests
+beforeEach(() => {
+  inserted.length = 0
+})
+
+type ReqLike = { method?: string; body?: Record<string, unknown>; query?: Record<string, unknown> }
+type ResLike = {
+  status: (code: number) => ResLike
+  json: (v: unknown) => ResLike
+  end: (s?: string) => ResLike
+  setHeader?: (k: string, v: string) => void
+}
+
+const makeReqRes = (opts: { method?: string; body?: Record<string, unknown>; query?: Record<string, unknown> } = {}) => {
+  const req: ReqLike = { method: opts.method || 'GET', body: opts.body || {}, query: opts.query || {} }
+  const res: ResLike = {
+    status: vi.fn().mockImplementation(function (_code: number) { return res }),
+    json: vi.fn().mockImplementation(function (_v: unknown) { return res }),
+    end: vi.fn().mockImplementation(function (_s?: string) { return res }),
     setHeader: vi.fn(),
   }
   return { req, res }

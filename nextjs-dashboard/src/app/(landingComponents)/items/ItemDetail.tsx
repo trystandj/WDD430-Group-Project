@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import React from 'react'
+import Image from 'next/image'
 import './reviews.css'
 import { SellerProfile, SellerItem } from '@/app/lib/definitions'
 import ReviewsClient from '@/app/components/[reviews]/ReviewsClient'
@@ -15,7 +16,7 @@ export default function ItemDetail({ item, seller, userId = null, username = nul
             {seller && (
               <div className="seller-float">
                 <div className="seller-compact-card">
-                  <img src={seller.avatarUrl ?? ''} alt={seller.name} className="seller-profile-avatar" />
+                  <Image src={seller.avatarUrl ?? '/images/spoons.webp'} alt={seller.name} className="seller-profile-avatar" width={40} height={40} />
                   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                     <span className="seller-compact-name">{seller.name}</span>
                     <Link href={`/sellers/${seller.id}`} className="seller-compact-button">View Seller</Link>
@@ -26,10 +27,12 @@ export default function ItemDetail({ item, seller, userId = null, username = nul
           </div>
 
           <div className="seller-profile-card item-image-wrapper">
-            <img
+            <Image
               src={item.imageUrl}
               alt={item.title}
               className="item-image"
+              width={800}
+              height={600}
               style={{ width: '100%', height: 'auto', display: 'block' }}
             />
           </div>
@@ -41,7 +44,7 @@ export default function ItemDetail({ item, seller, userId = null, username = nul
             {seller && (
               <div className="seller-below" style={{ marginTop: '0.75rem' }}>
                 <Link href={`/sellers/${seller.id}`} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  <img src={seller.avatarUrl ?? ''} alt={seller.name} className="seller-profile-avatar" style={{ width: 40, height: 40 }} />
+                  <Image src={seller.avatarUrl ?? '/images/spoons.webp'} alt={seller.name} className="seller-profile-avatar" width={40} height={40} />
                   <span className="seller-compact-name">{seller.name}</span>
                 </Link>
               </div>
@@ -56,7 +59,7 @@ export default function ItemDetail({ item, seller, userId = null, username = nul
 
           <div className="reviews-section">
 
-            <ReviewsClient productId={String(item.id)} itemId={item.id} sellerId={seller?.id} userId={userId} username={username} />
+            <ReviewsClient productId={String(item.id)} itemId={item.id} />
           </div>
         </div>
 

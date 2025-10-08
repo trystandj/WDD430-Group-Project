@@ -25,8 +25,7 @@ export default function SpotlightCard({ name, description, images }: SpotlightCa
       <div className={styles.card}>
         
         {displayImages[0]?.src && (
-          // Using external image source (Picsum/placeholder images)
-          <img
+          <Image
             src={displayImages[0].src}
             width={300}
             height={300}

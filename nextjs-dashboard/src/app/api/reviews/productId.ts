@@ -14,7 +14,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       const maybeNumber = Number(productIdStr);
       const isNumeric = !Number.isNaN(maybeNumber);
 
-      const query: any = isNumeric ? { itemId: maybeNumber } : { productId: productIdStr };
+      const query: Record<string, unknown> = isNumeric ? { itemId: maybeNumber } : { productId: productIdStr };
 
       const reviewsFromDb = await db
         .collection("reviews")
@@ -23,8 +23,20 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         .toArray();
 
       // Convert MongoDB ObjectId to string for _id and preserve itemId/sellerId
-      const reviews: Review[] = reviewsFromDb.map((r) => ({
-        _id: r._id.toString(),
+      type RawReview = {
+        _id: { toString(): string } | string;
+        productId?: string;
+        itemId?: number;
+        sellerId?: number;
+        userId: string;
+        username: string;
+        rating: number;
+        comment: string;
+        createdAt: Date | string;
+      };
+
+      const reviews: Review[] = (reviewsFromDb as unknown as RawReview[]).map((r) => ({
+        _id: typeof r._id === 'string' ? r._id : r._id.toString(),
         productId: r.productId,
         itemId: r.itemId,
         sellerId: r.sellerId,
@@ -32,7 +44,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         username: r.username,
         rating: r.rating,
         comment: r.comment,
-        createdAt: r.createdAt,
+        createdAt: r.createdAt instanceof Date ? r.createdAt : new Date(String(r.createdAt)),
       }));
 
       res.status(200).json({ success: true, data: reviews });

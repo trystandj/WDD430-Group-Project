@@ -30,7 +30,7 @@ export default function ReviewForm({ productId, itemId, sellerId, userId, userna
   const [rating, setRating] = useState<number>(5);
   const [hoverRating, setHoverRating] = useState<number>(0);
   const [comment, setComment] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
   // Only allow the form when a real user is provided. Do not use any dev
@@ -66,15 +66,12 @@ export default function ReviewForm({ productId, itemId, sellerId, userId, userna
       if (data.success) {
         setRating(5);
         setComment('');
-        // call callback if provided (client-only)
-        try { onReviewAdded && onReviewAdded(data.data) } catch (e) { /* ignore */ }
-        // dispatch a global event so other client components can listen and update
+          try { if (onReviewAdded) onReviewAdded(data.data) } catch (_err) {}
         try {
           if (typeof window !== 'undefined') {
             window.dispatchEvent(new CustomEvent('review:added', { detail: data.data }))
           }
         } catch (e) {
-          // ignore
         }
       } else {
         setError(data?.message || 'Failed to submit review');

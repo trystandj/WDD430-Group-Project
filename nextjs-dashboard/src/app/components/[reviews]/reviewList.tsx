@@ -1,4 +1,5 @@
 import React from 'react'
+import Image from 'next/image'
 
 interface Review {
   _id: string;
@@ -37,7 +38,7 @@ export default function ReviewList({ reviews }: ReviewListProps) {
       <div className="mt-4 max-w-3xl mx-auto px-2">
   <article className="review-box">
           <div className="review-header">
-            <img src="/images/spoons.webp" alt="avatar" className="review-avatar" />
+            <Image src="/images/spoons.webp" alt="avatar" className="review-avatar" width={48} height={48} />
             <div>
               <p className="review-author">{jane.username}</p>
               <div className="review-meta inline-flex items-center gap-1">
@@ -63,7 +64,7 @@ export default function ReviewList({ reviews }: ReviewListProps) {
       {reviews.map((review) => (
         <article key={review._id} className="review-box">
           <div className="review-header">
-            <img src="/images/spoons.webp" alt="avatar" className="review-avatar" />
+            <Image src="/images/spoons.webp" alt="avatar" className="review-avatar" width={48} height={48} />
             <div>
               <p className="review-author">{review.username}</p>
               <div className="review-meta inline-flex items-center gap-1">

@@ -1,4 +1,3 @@
-import type { Review as ReviewModel } from '@/models/reviewModel'
 import clientPromise from '@/app/lib/mongodb'
 import ReviewsClient from '@/app/components/[reviews]/ReviewsClient'
 
@@ -13,7 +12,7 @@ export default async function Reviews({ productId, itemId, userId = null, userna
   const client = await clientPromise
   const db = client.db('handcraftedHaven')
 
-  const query: any = {}
+  const query: Record<string, unknown> = {}
   if (typeof itemId === 'number') {
     query.itemId = itemId
   } else {
@@ -31,7 +30,7 @@ export default async function Reviews({ productId, itemId, userId = null, userna
     .sort({ createdAt: -1 })
     .toArray()
 
-  const initialReviews: Array<{
+  type InitialReview = {
     _id: string
     productId?: string
     itemId?: number
@@ -41,17 +40,24 @@ export default async function Reviews({ productId, itemId, userId = null, userna
     rating: number
     comment: string
     createdAt: string
-  }> = reviewsFromDb.map((r: any) => ({
-    _id: r._id.toString(),
-    productId: r.productId,
-    itemId: r.itemId,
-    sellerId: r.sellerId,
-    userId: r.userId,
-    username: r.username,
-    rating: r.rating,
-    comment: r.comment,
-    createdAt: r.createdAt instanceof Date ? r.createdAt.toISOString() : String(r.createdAt),
-  }))
+  }
 
-  return <ReviewsClient productId={productId} itemId={itemId} initialReviews={initialReviews} userId={userId} username={username} />
+  type RawReview = { _id: { toString(): string } | string; createdAt?: Date | string; productId?: string; itemId?: number; sellerId?: number; userId?: string; username?: string; rating?: number; comment?: string }
+
+  const initialReviews: InitialReview[] = (reviewsFromDb as unknown as RawReview[]).map((r) => {
+    const raw = r
+    return {
+      _id: typeof raw._id === 'string' ? raw._id : raw._id.toString(),
+      productId: raw.productId,
+      itemId: raw.itemId,
+      sellerId: raw.sellerId,
+      userId: raw.userId ?? '',
+      username: raw.username ?? '',
+      rating: typeof raw.rating === 'number' ? raw.rating : 0,
+      comment: raw.comment ?? '',
+      createdAt: raw.createdAt instanceof Date ? raw.createdAt.toISOString() : String(raw.createdAt ?? ''),
+    } as InitialReview
+  })
+
+  return <ReviewsClient productId={productId} itemId={itemId} initialReviews={initialReviews} />
 }
