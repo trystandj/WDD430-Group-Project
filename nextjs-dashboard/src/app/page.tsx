@@ -29,14 +29,7 @@ export default function Home() {
         
         <HeroImage images={heroImages} interval={8000} />
 
-   
-
-       
-        <div className="mt-12">
-          <ItemSpotlightUI />
-          
-        </div>
- <section className={styles.BusinessSpotlight}>
+         <section className={styles.BusinessSpotlight}>
          <div className={styles.Bus_Spot}>
           <span className="uppercase text-sm tracking-widest text-gray-500">
             Business Spotlight
@@ -69,6 +62,13 @@ export default function Home() {
           </div>
         </div>
         </section>
+
+       
+        <div className="mt-12">
+          <ItemSpotlightUI />
+          
+        </div>
+
       </main>
 
       
