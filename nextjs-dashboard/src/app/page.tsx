@@ -36,6 +36,39 @@ export default function Home() {
           <ItemSpotlightUI />
           
         </div>
+ <section className={styles.BusinessSpotlight}>
+         <div className={styles.Bus_Spot}>
+          <span className="uppercase text-sm tracking-widest text-gray-500">
+            Business Spotlight
+          </span>
+          <h2 className="text-4xl font-bold text-gray-800 mt-2">
+            Our purpose as a Business
+          </h2>
+            <p> 
+              Here at Handcraft Haven, our purpose is to create goods by hand traditionally. We work hard to <br />gather these recipes and instructions for a good handcrafted feel.<br />
+            </p>
+
+          <span className="uppercase text-sm tracking-widest text-gray-500">
+            Customer Spotlight
+          </span>
+          <div className={styles.Spotlight_Card}>
+          <Image 
+            src="/stockperson.jpg"
+            alt="Hero image"
+            width={150}
+            height={150}
+            fetchPriority="high"
+            className={`${styles.Rounded_Image} hidden md:block`}
+          />
+            
+          <div>
+          
+          Handcraft Haven gave me the best opportunity to enjoy handcrafted goods! It was an unforgetable experience that resonated with me.<br /><br />
+          - Alyssa 
+          </div>
+          </div>
+        </div>
+        </section>
       </main>
 
       
