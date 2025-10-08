@@ -1,5 +1,6 @@
 import { fetchSellerProfiles } from "../../lib/data";
 import Link from "next/link";
+import Image from 'next/image'
 import './sellers.css';
 
 export default async function SellersPage() {
@@ -24,10 +25,12 @@ export default async function SellersPage() {
               className="seller-card"
             >
               <div className="seller-content">
-                <img
-                  src={seller.avatarUrl}
+                <Image
+                  src={seller.avatarUrl ?? '/images/spoons.webp'}
                   alt={seller.name}
                   className="seller-avatar"
+                  width={80}
+                  height={80}
                 />
                 <h2 className="seller-name">{seller.name}</h2>
                 <p className="seller-bio">{seller.bio}</p>

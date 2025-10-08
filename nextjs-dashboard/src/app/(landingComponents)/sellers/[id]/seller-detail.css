@@ -27,6 +27,26 @@
   margin-bottom: 1.5rem;
 }
 
+/* Item header helper: ensure header is positioned for absolute child placement */
+.item-header {
+  position: relative;
+  min-height: 4.5rem;
+  padding: 0.5rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Desktop: float the compact seller card to the right of the centered header */
+.seller-float {
+  position: absolute;
+  right: -220px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 12;
+  transition: right 0.2s ease;
+}
+
 /* Seller Profile Avatar */
 .seller-profile-avatar {
   width: 7rem;
@@ -42,7 +62,8 @@
   font-size: 2rem;
   font-weight: 500;
   color: #2c2b2a;
-  margin: 0 0 0.5rem 0;
+  margin: 0;
+  padding: 0.5rem 0; /* vertical padding to visually match seller box height */
   font-family: 'Great Vibes', cursive;
   position: relative;
 }
@@ -141,6 +162,18 @@
   border: 2px solid #73A073;
 }
 
+/* Add breathing room around the image on the item detail page */
+.item-image-wrapper {
+  padding: 1rem;
+  background: transparent;
+}
+
+@media (max-width: 768px) {
+  .item-image-wrapper {
+    padding: 0.5rem;
+  }
+}
+
 /* Item Content Container */
 .item-content {
   display: flex;
@@ -159,11 +192,37 @@
 
 /* Item Description */
 .item-description {
-  font-size: 0.95rem;
+  font-size: 1.125rem;
   color: #2c2b2a;
-  margin: 0;
-  line-height: 1.5;
+  margin: 0 auto;
+  line-height: 1.6;
   font-family: 'EB Garamond', serif;
+  max-width: 70ch;
+}
+
+/* Center and scale the item description on the item detail page */
+.items-section .item-description {
+  text-align: center;
+  margin-top: 0.5rem;
+}
+
+/* Make the price more prominent and aligned with the description */
+.items-section .item-price {
+  font-size: 1.25rem;
+  font-weight: 800;
+  margin-top: 0.75rem;
+}
+
+/* Larger screens: scale up text to match page size */
+@media (min-width: 1024px) {
+  .items-section .item-description {
+    font-size: 1.25rem;
+    max-width: 80ch;
+  }
+
+  .items-section .item-price {
+    font-size: 1.5rem;
+  }
 }
 
 /* Item Price */
@@ -259,6 +318,121 @@
 
   .item-image {
     height: 8rem;
+  }
+}
+
+/* Compact seller card used in item detail right column */
+.seller-compact-card {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  background: #f8f8f8;
+  max-width: 260px;
+}
+
+.seller-compact-card .seller-profile-avatar {
+  width: 3rem;
+  height: 3rem;
+  border-width: 1.25px;
+}
+
+.seller-compact-name {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+  text-align: center;
+}
+
+.seller-compact-button {
+  margin-top: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.85rem;
+  border-radius: 0.375rem;
+  background: #73A073;
+  color: white;
+  text-decoration: none;
+}
+
+/* Inline clickable area (hidden on desktop) */
+.seller-compact-inline {
+  display: none;
+}
+
+/* Mobile inline layout: small avatar left, name next to it; hide separate button */
+@media (max-width: 768px) {
+  .seller-compact-inline {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .seller-compact-card {
+    padding: 0.5rem;
+    background: transparent;
+  }
+
+  /* On mobile hide the stacked desktop layout so only the inline link shows */
+  .seller-compact-stack {
+    display: none;
+  }
+
+
+/* Item page layout helpers so the aside can sit at the page edge */
+.item-page-container {
+  position: relative;
+}
+
+.item-page-main {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.item-page-aside {
+  position: absolute;
+  right: 1rem;
+  top: 80px;
+  z-index: 10;
+}
+
+@media (max-width: 768px) {
+  .item-page-aside {
+    position: static;
+    width: 100%;
+    margin-top: 1rem;
+  }
+
+  .item-page-main {
+    max-width: 100%;
+    margin: 0;
+  }
+}
+  .seller-compact-button {
+    display: none;
+  }
+}
+
+/* Small-screen overrides: hide the header/top seller and show a centered seller block below the price */
+@media (max-width: 768px) {
+  .seller-float {
+    display: none !important;
+  }
+
+  .seller-below {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 0.5rem;
+  }
+}
+
+/* Desktop: ensure the mobile-only seller block is hidden */
+@media (min-width: 769px) {
+  .seller-below {
+    display: none !important;
   }
 }
 

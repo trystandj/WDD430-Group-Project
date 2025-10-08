@@ -1,4 +1,5 @@
 import React from "react";
+import Image from 'next/image'
 
 type Item = {
   title: string;
@@ -21,10 +22,12 @@ const SellerItems: React.FC<SellerItemsProps> = ({ items }) => {
         {items && items.length > 0 ? (
           items.map((item, idx) => (
             <div key={idx} className="item-card">
-              <img
+              <Image
                 src={item.imageUrl}
                 alt={item.title}
                 className="item-image"
+                width={400}
+                height={300}
               />
               <div className="item-content">
                 <h3 className="item-title">{item.title}</h3>
