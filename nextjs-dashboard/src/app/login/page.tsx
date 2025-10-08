@@ -13,7 +13,7 @@ export default function LoginPage() {
     e.preventDefault();
     if (username === "admin" && password === "1234") {
       localStorage.setItem("user", username);
-      router.push("/"); // redirect home after login
+      router.push("/");
     } else {
       alert("Invalid credentials");
     }

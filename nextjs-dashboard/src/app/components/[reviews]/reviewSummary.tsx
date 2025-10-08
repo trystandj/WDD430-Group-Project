@@ -12,7 +12,7 @@ export default function ReviewSummary({ reviews }: ReviewSummaryProps) {
   const total = reviews.reduce((sum, r) => sum + r.rating, 0);
   const avg = total / reviews.length;
 
-  const rounded = Math.round(avg * 2) / 2; // nearest 0.5
+  const rounded = Math.round(avg * 2) / 2;
 
   const renderStars = () => {
     return Array.from({ length: 5 }, (_, i) => {
@@ -33,10 +33,7 @@ export default function ReviewSummary({ reviews }: ReviewSummaryProps) {
 
   return (
     <div className="p-4 border rounded-md bg-surface dark:bg-surface-dark border-muted dark:border-muted-dark max-w-3xl mx-auto">
-      <p className="text-lg font-semibold text-fg dark:text-fg-dark">
-        {reviews.length} Review{reviews.length > 1 ? 's' : ''}
-      </p>
-      <div className="flex items-center mt-1">
+      <div className="flex items-center justify-center mt-1">
         {renderStars()}
         <span className="ml-2 text-fg dark:text-fg-dark">({avg.toFixed(1)} / 5)</span>
       </div>

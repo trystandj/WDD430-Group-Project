@@ -1,25 +1,33 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import clientPromise from "@/lib/mongodb";
+import clientPromise from "@/app/lib/mongodb";
 import { Review } from "@/models/reviewModel";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const client = await clientPromise;
-  const db = client.db("handcraftedHaven"); // use same DB name as other route
+  const db = client.db("handcraftedHaven");
   const { productId } = req.query;
   const productIdStr = Array.isArray(productId) ? productId[0] : productId;
 
   if (req.method === "GET") {
     try {
+      // If the path param is numeric (e.g. /api/reviews/4), treat it as itemId.
+      const maybeNumber = Number(productIdStr);
+      const isNumeric = !Number.isNaN(maybeNumber);
+
+      const query: any = isNumeric ? { itemId: maybeNumber } : { productId: productIdStr };
+
       const reviewsFromDb = await db
         .collection("reviews")
-        .find({ productId: productIdStr })
+        .find(query)
         .sort({ createdAt: -1 })
         .toArray();
 
-      // Convert MongoDB ObjectId to string for _id
+      // Convert MongoDB ObjectId to string for _id and preserve itemId/sellerId
       const reviews: Review[] = reviewsFromDb.map((r) => ({
         _id: r._id.toString(),
         productId: r.productId,
+        itemId: r.itemId,
+        sellerId: r.sellerId,
         userId: r.userId,
         username: r.username,
         rating: r.rating,

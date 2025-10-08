@@ -163,3 +163,17 @@ export async function fetchStoriesBySellerId(
     throw new Error("Failed to fetch seller stories by sellerId.");
   }
 }
+
+// Fetch a single item by its numeric id
+export async function fetchItemById(id: number): Promise<SellerItem | null> {
+  try {
+    const client = await clientPromise;
+    const db = client.db("marketplace");
+    const collection = db.collection<SellerItem>("items");
+    const item = await collection.findOne({ id });
+    return item;
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to fetch item.");
+  }
+}

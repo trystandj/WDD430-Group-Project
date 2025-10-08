@@ -1,18 +1,24 @@
 "use client";
 import React, { useState } from "react";
-import { StarIcon as StarSolid } from "@heroicons/react/24/solid";
-import { StarIcon as StarOutline } from "@heroicons/react/24/outline";
+import Link from 'next/link'
+import headerStyles from '../../ui/header.module.css'
 
 interface ReviewFormProps {
-  productId: string;
+  productId?: string;
+  // numeric itemId used to link a review to a specific item
+  itemId?: number;
+  // optional sellerId if available
+  sellerId?: number;
   userId: string | null;
   username: string | null;
-  onReviewAdded: (review: ReviewResponse) => void;
+  onReviewAdded?: (review: ReviewResponse) => void;
 }
 
 interface ReviewResponse {
   _id: string;
-  productId: string;
+  productId?: string;
+  itemId?: number;
+  sellerId?: number;
   userId: string;
   username: string;
   rating: number;
@@ -20,12 +26,16 @@ interface ReviewResponse {
   createdAt: string;
 }
 
-export default function ReviewForm({ productId, userId, username, onReviewAdded }: ReviewFormProps) {
+export default function ReviewForm({ productId, itemId, sellerId, userId, username, onReviewAdded }: ReviewFormProps) {
   const [rating, setRating] = useState<number>(5);
   const [hoverRating, setHoverRating] = useState<number>(0);
   const [comment, setComment] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+
+  // Only allow the form when a real user is provided. Do not use any dev
+  // fallback here — the page should require an authenticated user. The
+  // server-side page should pass `userId`/`username` when available.
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -49,14 +59,23 @@ export default function ReviewForm({ productId, userId, username, onReviewAdded 
       const res = await fetch('/api/reviews', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ productId, userId, username, rating, comment }),
+  body: JSON.stringify({ productId, itemId, sellerId, userId, username, rating, comment }),
       });
 
       const data = await res.json();
       if (data.success) {
         setRating(5);
         setComment('');
-        onReviewAdded(data.data);
+        // call callback if provided (client-only)
+        try { onReviewAdded && onReviewAdded(data.data) } catch (e) { /* ignore */ }
+        // dispatch a global event so other client components can listen and update
+        try {
+          if (typeof window !== 'undefined') {
+            window.dispatchEvent(new CustomEvent('review:added', { detail: data.data }))
+          }
+        } catch (e) {
+          // ignore
+        }
       } else {
         setError(data?.message || 'Failed to submit review');
       }
@@ -67,56 +86,72 @@ export default function ReviewForm({ productId, userId, username, onReviewAdded 
     }
   };
 
+  // presentation wrapper class used for the boxed area
+  const boxClass = "p-4 border rounded-md bg-surface dark:bg-surface-dark border-muted dark:border-muted-dark max-w-3xl mx-auto";
+
   if (!userId) {
-    return <p className="p-4 border rounded-md mt-4">Please log in to write a review.</p>;
+    return (
+      <div className={boxClass}>
+        <h3 className="text-xl md:text-2xl font-semibold text-center">Leave A Review</h3>
+        <div className="flex flex-col items-center py-6" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+          <p className="mb-3 text-sm text-fg dark:text-fg-dark text-center">Please log in to leave feedback.</p>
+          <div className="mt-4" style={{ marginTop: '1rem' }}>
+            <Link href="/login">
+              <button className={`${headerStyles.button} login-button`} style={{ margin: '0.5rem auto', padding: '0.6rem 1.25rem' }}>Login</button>
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   return (
-    <form onSubmit={handleSubmit} className="p-4 border rounded-md mt-4 bg-surface dark:bg-surface-dark border-muted dark:border-muted-dark max-w-3xl mx-auto">
-      <h3 className="text-lg font-semibold mb-2 text-fg dark:text-fg-dark">Write a Review</h3>
+    <div className={boxClass}>
+      <h3 className="text-xl md:text-2xl font-semibold text-center">Leave A Review</h3>
 
-      {error && <div className="text-red-600 mb-2">{error}</div>}
+      <form onSubmit={handleSubmit} className="mt-3">
+        {error && <div className="text-red-600 mb-2">{error}</div>}
 
-      <label className="block mb-2 text-fg dark:text-fg-dark">Rating:</label>
-      <div className="flex items-center gap-1 mb-3">
-        {Array.from({ length: 5 }, (_, i) => {
-          const starValue = i + 1;
-          const active = starValue <= (hoverRating || rating);
-          return (
-            <button
-              type="button"
-              key={i}
-              onClick={() => setRating(starValue)}
-              onMouseEnter={() => setHoverRating(starValue)}
-              onMouseLeave={() => setHoverRating(0)}
-              className="focus:outline-none"
-              aria-label={`${starValue} star`}
-            >
-              {active ? (
-                <StarSolid className="h-5 w-5 text-yellow-400 flex-shrink-0" />
-              ) : (
-                <StarOutline className="h-5 w-5 text-yellow-400 flex-shrink-0" />
-              )}
-            </button>
-          );
-        })}
-        <span className="ml-3 text-sm text-fg dark:text-fg-dark">{rating} / 5</span>
-      </div>
+  <label className="block mb-2 text-fg dark:text-fg-dark text-lg font-semibold">Rating:</label>
+  <div className="flex items-center gap-3 mb-3 justify-center">
+          {Array.from({ length: 5 }, (_, i) => {
+            const starValue = i + 1;
+            const active = starValue <= (hoverRating || rating);
+            return (
+              <button
+                type="button"
+                key={i}
+                onClick={() => setRating(starValue)}
+                onMouseEnter={() => setHoverRating(starValue)}
+                onMouseLeave={() => setHoverRating(0)}
+                  className="focus:outline-none review-star-button"
+                aria-label={`${starValue} star`}
+                style={{ background: 'transparent', border: 'none', padding: 0 }}
+              >
+                  <span className={`inline-block mr-1 align-middle text-3xl review-star ${active ? 'active' : 'inactive'}`}>
+                    {active ? '★' : '☆'}
+                  </span>
+              </button>
+            );
+          })}
+        </div>
 
-      <label className="block mb-2 text-fg dark:text-fg-dark">Comment (max 200 words):</label>
-      <textarea
-        value={comment}
-        onChange={(e) => setComment(e.target.value)}
-        className="border w-full p-2 rounded bg-surface dark:bg-surface-dark text-fg dark:text-fg-dark border-muted dark:border-muted-dark"
-        rows={4}
-        maxLength={1000}
-      />
+  <label className="block mb-2 text-fg dark:text-fg-dark text-lg font-semibold">Comment:</label>
+        <textarea
+          placeholder="Write your review here:"
+          value={comment}
+          onChange={(e) => setComment(e.target.value)}
+          className="border w-full md:w-3/4 mx-auto block p-3 rounded review-textarea"
+          style={{ minHeight: 160 }}
+          maxLength={1000}
+        />
 
-      <div className="mt-3 flex justify-end">
-        <button type="submit" disabled={loading} className="bg-primary text-gray-50 px-4 py-2 rounded disabled:opacity-50">
-          {loading ? 'Submitting…' : 'Submit Review'}
-        </button>
-      </div>
-    </form>
+        <div className="mt-3 flex justify-center">
+          <button type="submit" disabled={loading} className={`${headerStyles.button} review-submit-button`}>
+            {loading ? 'Submitting…' : 'Submit'}
+          </button>
+        </div>
+      </form>
+    </div>
   );
 }

@@ -33,8 +33,8 @@ export default function BusinessSpotlight() {
 
           src="/hero.jpg"
           alt="Hero image"
-          width={699} //3 233
-          height={466} //2
+          width={699}
+          height={466}
           fetchPriority="high"
           className="hidden md:block"
         />

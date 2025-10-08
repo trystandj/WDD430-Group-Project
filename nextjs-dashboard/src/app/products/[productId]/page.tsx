@@ -36,6 +36,9 @@ export default async function ProductPage(props: { params: { productId: string }
     },
   ]
 
+  const maybeNumber = Number(productId)
+  const itemId = !Number.isNaN(maybeNumber) ? maybeNumber : undefined
+
   return (
     <div className="p-6">
       <h1 className="text-2xl font-bold mb-4">Product {productId}</h1>
@@ -46,10 +49,10 @@ export default async function ProductPage(props: { params: { productId: string }
           server Reviews component which fetches from the DB. */}
       {isDemo ? (
         // render client-only widget with demo data
-        <ReviewsClient productId={productId} initialReviews={sampleReviews} userId={userId} username={username} />
+        <ReviewsClient productId={productId} itemId={itemId} initialReviews={sampleReviews} userId={userId} username={username} />
       ) : (
         // server widget (fetches real reviews from MongoDB)
-        <Reviews productId={productId} userId={userId} username={username} />
+        <Reviews productId={productId} itemId={itemId} userId={userId} username={username} />
       )}
     </div>
   )
