@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import SpotlightCard from "./SpotlightCard";
+
 import { spotlightData } from "./spotlightData";
 import styles from "./Card.module.css";
 import Image from "next/image";
@@ -18,7 +18,7 @@ export default function BusinessSpotlight() {
     return () => clearInterval(interval);
   }, []);
 
-  const currentBusiness = spotlightData[currentIndex];
+ 
 
   return (
     <section className={styles.BusinessSpotlight}>
@@ -38,30 +38,8 @@ export default function BusinessSpotlight() {
           fetchPriority="high"
           className="hidden md:block"
         />
-
-          <span className="uppercase text-sm tracking-widest text-gray-500">
-            Item Spotlight
-          </span>
-          <h2 className="text-4xl font-bold text-gray-800 mt-2">
-            Browse Some of Our Featured Items
-          </h2>
+          
         </header>
-
-        {/* Cards grid */}
-        <div>
-          {currentBusiness.images.slice(0, 6).map((imageData, idx) => (
-            <div
-              key={idx}
-              data-card="true"
-            >
-              <SpotlightCard
-                name={currentBusiness.name}
-                description={currentBusiness.description}
-                images={[imageData]} 
-              />
-            </div>
-          ))}
-        </div>
       </div>
     </section>
   );
