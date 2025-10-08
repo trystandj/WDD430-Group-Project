@@ -1,39 +1,59 @@
+/* ============================= */
+/* Root Theme Variables          */
+/* ============================= */
 :root {
+  /* Colors */
+  --main: #73a073;        /* Primary Green */
+  --secondary: #999a96;   /* Neutral Gray */
+  --third: #eedb61;       /* Accent Yellow */
+  --font-light: #ececec;  /* Light Text */
+  --font-dark: #2c2b2a;   /* Dark Text */
+
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: var(--font-dark);
+
+  /* Typography */
+  --font-body: 'EB Garamond', serif;
+  --font-header: 'Great Vibes', cursive;
 }
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* ============================= */
+/* Dark Mode                     */
+/* ============================= */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #ececec;
-    --foreground: #ededed;
-    --primary: #73A073;
-    --secondary: #999a96;
-    --third: #eedb61;
-    --fourth: #ececec;
-    --fifth: #2c2b2a;
+    --background: var(--font-dark);
+    --foreground: var(--font-light);
+  }
+
+  html {
+    color-scheme: dark;
   }
 }
 
+/* ============================= */
+/* Global Reset + Layout         */
+/* ============================= */
 html,
 body {
   max-width: 100vw;
-  min-height: 120vw;
+  min-height: 100vh;
   overflow-x: hidden;
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Reset */
 * {
   box-sizing: border-box;
   padding: 0;
@@ -45,8 +65,15 @@ a {
   text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+/* ============================= */
+/* Headings + Text               */
+/* ============================= */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-header);
+  color: var(--main);
+}
+
+p, li, span, a {
+  font-family: var(--font-body);
+  
 }

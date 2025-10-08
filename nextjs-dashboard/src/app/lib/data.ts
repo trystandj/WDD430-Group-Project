@@ -105,6 +105,22 @@ export async function fetchSellerItems(): Promise<SellerItem[]> {
   }
 }
 
+// Fetch 6 random items
+export async function fetchRandomSellerItems(): Promise<SellerItem[]> {
+  try {
+    console.log("Fetching 6 random seller items...");
+    const collection = await getItemsCollection();
+
+    const items = await collection.aggregate([{ $sample: { size: 6 } }]).toArray();
+
+    console.log(`Fetched ${items.length} random items.`);
+    return items as SellerItem[];
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to fetch random seller items.");
+  }
+}
+
 // Fetch items for one seller by sellerId
 export async function fetchItemsBySellerId(sellerId: number): Promise<SellerItem[]> {
   try {
