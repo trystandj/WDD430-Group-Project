@@ -40,7 +40,7 @@ export default function Header() {
             }
             
             <div>
-                <Link href="/">
+                <Link href="/login">
                     <button className={styles.button}>Login</button>
                 </Link>
                 <button className={styles.hamButton} onClick={() => setVisible(!visible)}>

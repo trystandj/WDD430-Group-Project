@@ -5,6 +5,8 @@ import Link from "next/link";
 import styles from "./page.module.css";
 import CTAButton from "./components/CTAButton"
 
+import BusinessSpotlight from "./(landingComponents)/BusinessSpotlight/page";
+
 export default function Home() {
   const user =
     typeof window !== "undefined" ? localStorage.getItem("user") : null;
@@ -12,14 +14,8 @@ export default function Home() {
   return (
     <div className={styles.page}>
       <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
+        
+        <BusinessSpotlight />
 
         {user ? (
           <div className="flex flex-col items-center gap-4">
