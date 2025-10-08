@@ -1,0 +1,428 @@
+/* Main Page Container */
+.seller-detail-page {
+  padding: 2rem;
+  max-width: 1024px;
+  margin: 0 auto;
+  font-family: 'EB Garamond', serif;
+  color: #2c2b2a;
+}
+
+/* Seller Profile Card */
+.seller-profile-card {
+  border: 1px solid #999a96;
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 6px rgba(44, 43, 42, 0.1);
+  padding: 1.5rem;
+  background: #ececec;
+  transition: all 0.3s ease;
+}
+
+
+
+/* Seller Header Section */
+.seller-header {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Seller Profile Avatar */
+.seller-profile-avatar {
+  width: 7rem;
+  height: 7rem;
+  border-radius: 50%;
+  border: 2px solid #73A073;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+/* Seller Profile Name */
+.seller-profile-name {
+  font-size: 2rem;
+  font-weight: 500;
+  color: #2c2b2a;
+  margin: 0 0 0.5rem 0;
+  font-family: 'Great Vibes', cursive;
+  position: relative;
+}
+
+.seller-profile-name::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #eedb61, transparent);
+  margin-top: 0.5rem;
+}
+
+/* Seller Profile Bio */
+.seller-profile-bio {
+  color: #2c2b2a;
+  margin: 0 0 0.5rem 0;
+  font-size: 1rem;
+  line-height: 1.6;
+  font-family: 'EB Garamond', serif;
+}
+
+/* Seller Meta Info */
+.seller-meta {
+  font-size: 0.9rem;
+  color: #999a96;
+  margin: 0.25rem 0;
+  font-style: italic;
+}
+
+/* Seller Email */
+.seller-email {
+  font-size: 0.9rem;
+  color: #73A073;
+  margin: 0.25rem 0 0 0;
+  text-decoration: underline;
+}
+
+.items-section {
+  margin-top: 3rem;
+}
+/* Items Section Title */
+.items-section-title {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #2c2b2a;
+  margin: 0 0 1rem 0;
+  font-family: 'Great Vibes', cursive;
+  text-align: center;
+  position: relative;
+}
+
+.items-section-title::after {
+  content: '';
+  display: block;
+  width: 70px;
+  height: 2px;
+  background: #73A073;
+  margin: 0.5rem auto 0;
+}
+
+/* Items Grid */
+.items-grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+/* Individual Item Card */
+.item-card {
+  border: 1px solid #999a96;
+  border-radius: 0.75rem;
+  padding: 1rem;
+  box-shadow: 0 1px 4px rgba(44, 43, 42, 0.08);
+  background: #fdfdfd;
+  transition: all 0.3s ease;
+}
+
+.item-card:hover {
+  box-shadow: 0 6px 12px rgba(44, 43, 42, 0.15);
+  transform: translateY(-4px);
+  border-color: #eedb61;
+}
+
+/* Item Image */
+.item-image {
+  width: 100%;
+  height: 10rem;
+  object-fit: cover;
+  border-radius: 0.5rem;
+  margin-bottom: 0.75rem;
+  border: 2px solid #73A073;
+}
+
+/* Item Content Container */
+.item-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Item Title */
+.item-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #2c2b2a;
+  margin: 0;
+  font-family: 'Great Vibes', cursive;
+}
+
+/* Item Description */
+.item-description {
+  font-size: 0.95rem;
+  color: #2c2b2a;
+  margin: 0;
+  line-height: 1.5;
+  font-family: 'EB Garamond', serif;
+}
+
+/* Item Price */
+.item-price {
+  color: #73A073;
+  font-weight: 600;
+  font-size: 1rem;
+  margin: 0;
+}
+
+/* Item Tags Container */
+.item-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  margin: 0.25rem 0;
+}
+
+/* Individual Item Tag */
+.item-tag {
+  background: #eedb61;
+  color: #2c2b2a;
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-weight: 500;
+  font-family: 'EB Garamond', serif;
+}
+
+/* No Items Message */
+.no-items {
+  color: #999a96;
+  font-size: 1rem;
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 2rem;
+  font-style: italic;
+  font-family: 'EB Garamond', serif;
+}
+
+/* Responsive Tweaks */
+@media (max-width: 768px) {
+  .seller-detail-page {
+    padding: 1rem;
+  }
+
+  .seller-profile-card {
+    padding: 1rem;
+  }
+
+  .seller-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+  }
+
+  .seller-profile-avatar {
+    width: 6rem;
+    height: 6rem;
+  }
+
+  .seller-profile-name {
+    font-size: 1.5rem;
+  }
+
+  .items-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .seller-detail-page {
+    padding: 0.5rem;
+  }
+
+  .seller-profile-card {
+    padding: 0.75rem;
+  }
+
+  .seller-profile-avatar {
+    width: 5rem;
+    height: 5rem;
+  }
+
+  .seller-profile-name {
+    font-size: 1.25rem;
+  }
+
+  .items-section-title {
+    font-size: 1.25rem;
+  }
+
+  .item-image {
+    height: 8rem;
+  }
+}
+
+
+
+/*  Narratives */
+
+.artisan-narratives {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+  background: linear-gradient(135deg, #ececec 0%, #f8f8f8 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.artisan-narratives::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -10%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(115, 160, 115, 0.1) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.artisan-narratives__heading {
+  font-size: 2.75rem;
+  font-weight: 400;
+  text-align: center;
+  margin-bottom: 3rem;
+  color: #73A073;
+  letter-spacing: 0.5px;
+  position: relative;
+  font-family: 'Great Vibes', cursive;
+}
+
+.artisan-narratives__heading::after {
+  content: '';
+  display: block;
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #eedb61, transparent);
+  margin: 1rem auto 0;
+}
+
+.artisan-tale {
+  background: #ececec;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(44, 43, 42, 0.08);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  border: 1px solid rgba(115, 160, 115, 0.15);
+}
+
+.artisan-tale:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 40px rgba(44, 43, 42, 0.2);
+}
+
+.artisan-tale__body {
+  padding: 2rem;
+}
+
+.artisan-tale__headline {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #73A073;
+  margin-bottom: 1.25rem;
+  line-height: 1.3;
+  font-family: 'Great Vibes', cursive;
+  position: relative;
+  padding-bottom: 0.75rem;
+}
+
+.artisan-tale__headline::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 40px;
+  height: 2px;
+  background: #eedb61;
+}
+
+.artisan-tale__text {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: #2c2b2a;
+  margin-bottom: 1rem;
+  font-family: 'EB Garamond', serif;
+}
+
+.artisan-tale__timestamp {
+  font-size: 0.875rem;
+  color: #2c2b2a;
+  font-style: italic;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(115, 160, 115, 0.2);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.artisan-tale__timestamp::before {
+  content: '✦';
+  color: #73A073;
+  font-size: 1.5rem;
+}
+
+.artisan-narratives__empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  font-size: 1.125rem;
+  color: #999a96;
+  padding: 3rem;
+  font-style: italic;
+  background: rgba(236, 236, 236, 0.5);
+  border-radius: 12px;
+  border: 2px dashed rgba(115, 160, 115, 0.3);
+}
+
+
+@media (max-width: 768px) {
+  .artisan-narratives {
+    padding: 3rem 1.5rem;
+  }
+
+  .artisan-narratives__heading {
+    font-size: 2.25rem;
+  }
+
+  .artisan-narratives__container {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .artisan-tale__body {
+    padding: 1.5rem;
+  }
+
+  .artisan-tale__headline {
+    font-size: 1.35rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .artisan-narratives__heading {
+    font-size: 1.875rem;
+  }
+
+  .artisan-tale__body {
+    padding: 1.25rem;
+  }
+}
+
+
+/* Not Found Page */
+.notfound {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 60vh;
+  text-align: center;
+  color: #999a96;
+  font-family: 'EB Garamond', serif;
+}
