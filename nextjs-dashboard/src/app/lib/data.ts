@@ -92,11 +92,52 @@ async function getItemsCollection() {
 }
 
 // Fetch all items
-export async function fetchSellerItems(): Promise<SellerItem[]> {
+export async function fetchItemsAmount(
+  title: string = "",
+): Promise<number> {
   try {
     console.log("Fetching seller items...");
     const collection = await getItemsCollection();
-    const items = await collection.find({}).toArray();
+
+    const query = title
+      ? { title: { $regex: title, $options: "i" } }
+      : {};
+
+    const items = await collection
+      .find(query)
+      .toArray();
+
+    console.log(`Fetched ${items.length} items.`);
+    const totalPages = Math.ceil(Number(items.length) / 9);
+
+    return totalPages;
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to fetch seller items.");
+  }
+}
+
+export async function fetchSellerItems(
+  title: string = "",
+  page: number = 1,
+  limit: number = 9
+): Promise<SellerItem[]> {
+  try {
+    console.log("Fetching seller items...");
+    const collection = await getItemsCollection();
+
+    const query = title
+      ? { title: { $regex: title, $options: "i" } }
+      : {};
+
+    const skip = (page - 1) * limit;
+
+    const items = await collection
+      .find(query)
+      .skip(skip)
+      .limit(limit)
+      .toArray();
+
     console.log(`Fetched ${items.length} items.`);
     return items;
   } catch (error) {

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import styles from "./Card.module.css";
+import styles from "@/app/ui/card/card.module.css";
 
 type ImageData = {
   src: string;

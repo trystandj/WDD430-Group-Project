@@ -1,8 +1,8 @@
 "use client";
 import { useState, useEffect } from "react";
-import SpotlightCard from "./SpotlightCard";
+import SpotlightCard from "../../ui/card/SpotlightCard";
 import { spotlightData } from "./spotlightData";
-import styles from "./Card.module.css";
+import styles from "@/app/ui/card/card.module.css";
 import Image from "next/image";
 
 export default function BusinessSpotlight() {
