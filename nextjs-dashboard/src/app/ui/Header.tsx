@@ -29,7 +29,7 @@ export default function Header() {
     const [visible, setVisible] = useState(false);
 
     return (
-        <header className={styles.container}>
+        <header className={clsx(styles.container, "z-50")}>
             <div>
                 <Link href="/">
                     <span>Handcrafted</span>
