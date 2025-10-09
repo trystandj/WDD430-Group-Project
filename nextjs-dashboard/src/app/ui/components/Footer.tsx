@@ -4,7 +4,7 @@ import React from "react";
 import CTAButton from "./CTAButton";
 
 interface FooterProps {
-  showCTA?: boolean; // default to false
+  showCTA?: boolean;
 }
 
 const Footer: React.FC<FooterProps> = ({ showCTA = false }) => {

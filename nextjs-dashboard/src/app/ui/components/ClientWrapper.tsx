@@ -6,7 +6,7 @@ import Footer from "./Footer";
 
 export default function ClientWrapper({ children }: { children: ReactNode }) {
   const pathname = usePathname();
-  const showCTA = pathname === "/"; // only show CTA on homepage
+  const showCTA = pathname === "/";
 
   return (
     <>
