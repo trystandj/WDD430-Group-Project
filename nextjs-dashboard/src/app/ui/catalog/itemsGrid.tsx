@@ -11,7 +11,7 @@ export default async function ItemsGrid ({
     const items = await fetchSellerItems(query, currentPage);
 
     return (
-        <div className="text-black m-auto grid md:grid-cols-3" id="sellers-container">
+        <div className="text-black m-auto grid gap-[1rem] md:grid-cols-3" id="sellers-container">
             {
                 items.map((item, index) =>
                     <div key={index} className="flex justify-center">

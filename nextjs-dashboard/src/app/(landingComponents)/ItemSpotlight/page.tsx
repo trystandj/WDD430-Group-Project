@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import styles from "./Card.module.css";
-import "../../(landingComponents)/sellers/[id]/seller-detail.css";
-import SellerItems from "../../ui/sellers/SellerItems";
+import styles from "@/app/ui/card/card.module.css";
+import "@/app/(landingComponents)/sellers/[id]/seller-detail.css";
+import SellerItems from "@/app/ui/sellers/SellerItems";
 
 export default function ItemSpotlightUI() {
   const [items, setItems] = useState([]);      

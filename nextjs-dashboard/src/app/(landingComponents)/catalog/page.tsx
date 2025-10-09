@@ -22,7 +22,7 @@ export default async function CatalogPage(props: {
                     <Search placeholder="search items..." />
                 </div>
             </div>
-            <div className="">
+            <div>
                 <ItemsGrid query={query} currentPage={currentPage} />
             </div>
             <div className="mt-5 flex w-full justify-center">
