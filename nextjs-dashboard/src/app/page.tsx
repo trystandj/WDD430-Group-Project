@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./page.module.css";
-import CTAButton from "./components/CTAButton";
+import CTAButton from "./ui/components/CTAButton";
 import ItemSpotlightUI from "./(landingComponents)/ItemSpotlight/page";
 import HeroImage from "./ui/HeroImage";
 
@@ -26,7 +26,6 @@ export default function Home() {
   return (
     <div className={styles.page}>
       <main className={styles.main}>
-        
         <HeroImage images={heroImages} interval={8000} />
 
          <section className={styles.BusinessSpotlight}>

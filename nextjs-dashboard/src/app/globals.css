@@ -1,3 +1,5 @@
+@import "tailwindcss";
+
 /* ============================= */
 /* Root Theme Variables          */
 /* ============================= */
@@ -24,14 +26,14 @@
 /* ============================= */
 /* Dark Mode                     */
 /* ============================= */
-@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: light) {
   :root {
     --background: var(--font-dark);
     --foreground: var(--font-light);
   }
 
   html {
-    color-scheme: dark;
+    color-scheme: light;
   }
 }
 
@@ -51,13 +53,13 @@ body {
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  padding: 0;
 }
 
 /* Reset */
 * {
   box-sizing: border-box;
-  padding: 0;
-  margin: 0;
 }
 
 a {
