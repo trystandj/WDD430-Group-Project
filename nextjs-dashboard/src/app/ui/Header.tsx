@@ -2,8 +2,9 @@
 
 import styles from  "./header.module.css";
 import Link from "next/link";
+import Image from 'next/image'
 import clsx from "clsx";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 interface NavigationProps {
     mobile: boolean;
@@ -15,8 +16,9 @@ function Navigation({mobile}: NavigationProps) {
             <nav className={clsx(mobile ? styles.linksMobile : styles.links)}>
                 <Link href="/">Home</Link>
                 <Link href="/sellers">Sellers</Link>
+                <Link href="/catalog">Catalog</Link>
                 {
-                    mobile && <Link href="/">Login</Link>
+                                    mobile && <Link href="/">Login</Link>
                 }
             </nav>
         </div>
@@ -27,7 +29,7 @@ export default function Header() {
     const [visible, setVisible] = useState(false);
 
     return (
-        <header className={styles.container}>
+        <header className={clsx(styles.container, "z-50")}>
             <div>
                 <Link href="/">
                     <span>Handcrafted</span>
@@ -44,7 +46,7 @@ export default function Header() {
                     <button className={styles.button}>Login</button>
                 </Link>
                 <button className={styles.hamButton} onClick={() => setVisible(!visible)}>
-                    <img width={100} height={100} src="/icons/ham-icon.svg" alt="ham-button"/>
+                    <Image width={24} height={24} src="/icons/ham-icon.svg" alt="ham-button" />
                 </button>
             </div>
         </header>

@@ -8,6 +8,7 @@
     background-color: white;
 }
 
+
 .linksContainer {
     visibility: hidden;
     position: fixed;
@@ -15,7 +16,6 @@
     justify-content: center;
     left: 0;
     right: 0;
-    z-index: 100000000;
 }
 
 .links {
@@ -37,7 +37,8 @@
     padding: 0.5rem 1.5rem;
     border-radius: 15px;
     border: none;
-    background-color: var(--primary);
+    background-color: var(--main);
+
 }
 
 .hamButton {

@@ -10,6 +10,7 @@ export interface SellerProfile {
 }
 
 export interface SellerItem {
+  id: number;
   sellerId: number; 
   title: string;
   description: string;

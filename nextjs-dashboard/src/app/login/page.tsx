@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import CTAButton from "../components/CTAButton";
+import CTAButton from "../ui/components/CTAButton";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -13,40 +13,11 @@ export default function LoginPage() {
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
-    setError("");
-
-    try {
-      const res = await fetch("/api/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        setError(data.message || "Login failed");
-        setLoading(false);
-        return;
-      }
-
-      // Save JWT and user info
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("userRole", data.role);
-      localStorage.setItem("userName", data.name);
-
-      // Redirect based on role
-      if (data.role === "seller") {
-        router.push("/seller-dashboard");
-      } else {
-        router.push("/user-dashboard");
-      }
-    } catch (err) {
-      console.error(err);
-      setError("Something went wrong. Please try again.");
-    } finally {
-      setLoading(false);
+    if (username === "admin" && password === "1234") {
+      localStorage.setItem("user", username);
+      router.push("/");
+    } else {
+      alert("Invalid credentials");
     }
   };
 
