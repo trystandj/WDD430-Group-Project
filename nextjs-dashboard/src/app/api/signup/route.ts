@@ -11,7 +11,7 @@ export async function POST(req: Request) {
     }
 
     const client = await clientPromise;
-    const db = client.db("your-database-name"); // 👈 change this to your DB name
+    const db = client.db("marketplace");
     const usersCollection = db.collection("users");
 
     const existingUser = await usersCollection.findOne({ email });
@@ -25,7 +25,7 @@ export async function POST(req: Request) {
       name,
       email,
       password: hashedPassword,
-      role, // "user" or "seller"
+      role, 
       createdAt: new Date(),
     });
 

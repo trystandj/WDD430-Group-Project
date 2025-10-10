@@ -1,24 +1,30 @@
 import { NextRequest, NextResponse } from "next/server";
 import clientPromise from "../../../lib/mongodb";
 import jwt from "jsonwebtoken";
+import { ObjectId } from "mongodb";
 
 export async function GET(req: NextRequest) {
   const token = req.headers.get("authorization")?.split(" ")[1];
 
-  if (!token) return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+  if (!token) {
+    return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+  }
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as { email: string };
+    const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as { userId: string; role: string };
 
     const client = await clientPromise;
-    const db = client.db("your-database-name"); // change to your DB
-    const user = await db.collection("users").findOne({ email: decoded.email, role: "user" });
+    const db = client.db("marketplace");
+    const user = await db.collection("users").findOne({ _id: new ObjectId(decoded.userId) });
 
-    if (!user) return NextResponse.json({ message: "User not found" }, { status: 404 });
+    if (!user) {
+      return NextResponse.json({ message: "User not found" }, { status: 404 });
+    }
 
-    const { password, ...profile } = user; // never send password
+    const { password, ...profile } = user; // exclude password before sending
     return NextResponse.json(profile);
   } catch (err) {
-    return NextResponse.json({ message: "Invalid token" }, { status: 401 });
+    console.error(err);
+    return NextResponse.json({ message: "Invalid or expired token" }, { status: 401 });
   }
 }

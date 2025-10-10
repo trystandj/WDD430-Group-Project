@@ -11,7 +11,7 @@ export async function GET(req: NextRequest) {
     const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as { email: string };
 
     const client = await clientPromise;
-    const db = client.db("your-database-name"); // change this to DB
+    const db = client.db("marketplace"); // change this to DB
     const seller = await db.collection("users").findOne({ email: decoded.email, role: "seller" });
 
     if (!seller) return NextResponse.json({ message: "Seller not found" }, { status: 404 });
