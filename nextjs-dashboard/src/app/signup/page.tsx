@@ -1,20 +1,35 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 
 export default function SignupPage() {
+  const router = useRouter();
   const [form, setForm] = useState({ name: "", email: "", password: "", role: "user" });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const res = await fetch("/api/signup", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
-    });
-    const data = await res.json();
-    alert(data.message);
+
+    try {
+      const res = await fetch("/api/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        alert("Signup successful!");
+        router.push("/");
+      } else {
+        alert(data.message || "Signup failed. Please try again.");
+      }
+    } catch (err) {
+      alert("An unexpected error occurred.");
+      console.error(err);
+    }
   };
 
   return (
