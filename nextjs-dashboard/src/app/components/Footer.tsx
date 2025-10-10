@@ -1,25 +1,14 @@
 "use client";
 
 import React from "react";
-import CTAButton from "./CTAButton";
 
-interface FooterProps {
-  showCTA?: boolean; // default to false
-}
-
-const Footer: React.FC<FooterProps> = ({ showCTA = false }) => {
-  const handleClick = () => {
-    alert("CTA Button clicked!");
-  };
-
+const Footer: React.FC = () => {
   return (
-    <footer className="bg-gray-900 text-white py-8 px-4 flex flex-col md:flex-row justify-between items-center">
-      <div className="mb-4 md:mb-0 text-center md:text-left">
-        <h2 className="text-xl font-bold">Group Project</h2>
-        <p className="text-gray-400">© 2025 All rights reserved.</p>
+    <footer>
+      <div className="footer-content">
+        <h2>Group Project</h2>
+        <p>© 2025 All rights reserved.</p>
       </div>
-
-      {showCTA && <CTAButton text="Join Now" onClick={handleClick} />}
     </footer>
   );
 };

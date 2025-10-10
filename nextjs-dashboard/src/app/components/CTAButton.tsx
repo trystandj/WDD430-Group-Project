@@ -4,13 +4,14 @@ import React from "react";
 interface CTAButtonProps {
   text: string;
   onClick?: () => void;
+  className?: string; 
 }
 
-const CTAButton: React.FC<CTAButtonProps> = ({ text, onClick }) => {
+const CTAButton: React.FC<CTAButtonProps> = ({ text, onClick, className }) => {
   return (
     <button
       onClick={onClick}
-      className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors duration-300"
+      className={`hero-cta ${className ?? ""}`} 
     >
       {text}
     </button>

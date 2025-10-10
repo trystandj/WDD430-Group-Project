@@ -6,29 +6,64 @@ import CTAButton from "../components/CTAButton";
 
 export default function LoginPage() {
   const router = useRouter();
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (username === "admin" && password === "1234") {
-      localStorage.setItem("user", username);
-      router.push("/"); // redirect home after login
-    } else {
-      alert("Invalid credentials");
+    setLoading(true);
+    setError("");
+
+    try {
+      const res = await fetch("/api/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setError(data.message || "Login failed");
+        setLoading(false);
+        return;
+      }
+
+      // Save JWT and user info
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("userRole", data.role);
+      localStorage.setItem("userName", data.name);
+
+      // Redirect based on role
+      if (data.role === "seller") {
+        router.push("/seller-dashboard");
+      } else {
+        router.push("/user-dashboard");
+      }
+    } catch (err) {
+      console.error(err);
+      setError("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className="flex flex-col min-h-screen justify-center items-center gap-4">
       <h2 className="text-2xl font-bold">Login</h2>
+      {error && (
+        <p className="bg-red-100 text-red-600 p-2 rounded w-72 text-center">{error}</p>
+      )}
       <form onSubmit={handleLogin} className="flex flex-col gap-3 w-72">
         <input
-          type="text"
-          placeholder="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           className="border p-2 rounded"
+          required
         />
         <input
           type="password"
@@ -36,8 +71,9 @@ export default function LoginPage() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           className="border p-2 rounded"
+          required
         />
-        <CTAButton text="Login" />
+        <CTAButton text={loading ? "Logging in..." : "Login"} />
       </form>
     </div>
   );
