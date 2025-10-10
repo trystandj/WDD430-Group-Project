@@ -11,7 +11,7 @@ export default function ClientWrapper({ children }: { children: ReactNode }) {
   return (
     <>
       <main className="flex-grow">{children}</main>
-      <Footer showCTA={showCTA} />
+      
     </>
   );
 }
