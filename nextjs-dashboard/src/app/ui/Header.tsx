@@ -42,7 +42,7 @@ export default function Header() {
 
   useEffect(() => {
   const handleStorageChange = () => {
-    setLoggedIn(!!localStorage.getItem("token"));
+    setIsLoggedIn(!!localStorage.getItem("token"));
   };
 
   window.addEventListener("storage", handleStorageChange);
