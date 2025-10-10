@@ -13,11 +13,7 @@ export default function Home() {
   return (
     <div className={styles.page}>
       <main className={styles.main}>
-        {<div className="hero-content flex flex-col items-center justify-center text-center gap-4">
-         <h1 className="text-4xl font-bold">Welcome to Our Marketplace!</h1>
-         <p className="text-lg text-gray-600">Find amazing sellers or start selling today.</p>
-         <CTAButton text="Get Started" onClick={() => window.location.href = '/signup'} />
-         </div>}
+       
         
         <BusinessSpotlight />
         
@@ -45,6 +41,12 @@ export default function Home() {
           
           
         )}
+
+         {<div className="hero-content flex flex-col items-center justify-center text-center gap-4">
+         <h1 className="text-4xl font-bold">Welcome to Our Marketplace!</h1>
+         <p className="text-lg text-gray-600">Find amazing sellers or start selling today.</p>
+         <CTAButton text="Get Started" onClick={() => window.location.href = '/signup'} />
+         </div>}
       </main>
       <footer className={styles.footer}>
         
