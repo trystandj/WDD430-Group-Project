@@ -1,12 +1,15 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 "use client";
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
+
 type UserProfile = {
   name: string;
   email: string;
-  orders?: any[];      // optional: placeholder for user-specific data
+  orders?: any[];
   preferences?: any[];
 };
 
@@ -50,36 +53,35 @@ export default function UserDashboard() {
     localStorage.removeItem("token");
     localStorage.removeItem("userRole");
     localStorage.removeItem("userName");
+         localStorage.clear();
+     
     router.push("/login");
+    window.location.href = "/";
+    
   };
 
   if (loading || !profile) {
-    return <p className="text-center mt-20 text-xl">Loading dashboard...</p>;
+    return <p className="dashboard-loading">Loading dashboard...</p>;
   }
 
   return (
-    <div className="p-6">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold">Welcome, {profile.name}!</h1>
-        <button
-          onClick={handleLogout}
-          className="bg-red-600 text-white py-2 px-4 rounded hover:bg-red-700"
-        >
+    <div className="dashboard-container">
+      <header className="dashboard-header">
+        <h1 className="dashboard-title">Welcome, {profile.name}!</h1>
+        <button onClick={handleLogout} className="logout-button">
           Logout
         </button>
-      </div>
+      </header>
 
-      {/* User-specific content */}
-      <div className="p-4 border rounded max-w-md mx-auto mb-6">
-        <h2 className="text-xl font-semibold mb-2">Your Account Info</h2>
+      <section className="user-card">
+        <h2 className="section-title">Your Account Info</h2>
         <p>Email: {profile.email}</p>
-        {/* Add more user info here */}
-      </div>
+      </section>
 
-      <div className="p-4 border rounded max-w-md mx-auto">
-        <h2 className="text-xl font-semibold mb-2">Orders / Preferences</h2>
+      <section className="user-card">
+        <h2 className="section-title">Orders / Preferences</h2>
         {profile.orders?.length || profile.preferences?.length ? (
-          <ul>
+          <ul className="data-list">
             {profile.orders?.map((order, i) => (
               <li key={i}>{JSON.stringify(order)}</li>
             ))}
@@ -90,7 +92,7 @@ export default function UserDashboard() {
         ) : (
           <p>No orders or preferences yet.</p>
         )}
-      </div>
+      </section>
     </div>
   );
 }

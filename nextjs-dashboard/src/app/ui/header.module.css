@@ -37,8 +37,15 @@
     padding: 0.5rem 1.5rem;
     border-radius: 15px;
     border: none;
-    background-color: var(--main);
+    background-color: var(--primary);
 
+
+
+}
+
+.button:hover {
+    background-color: var(--third);
+    color: var(--fifth);
 }
 
 .hamButton {

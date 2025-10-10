@@ -72,7 +72,10 @@ export default function SellerDashboard() {
     localStorage.removeItem("token");
     localStorage.removeItem("userRole");
     localStorage.removeItem("userName");
+     localStorage.clear();
+     
     router.push("/login");
+    window.location.href = "/";
   };
 
   if (loading || !profile) {

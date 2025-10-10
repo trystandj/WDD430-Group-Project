@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import CTAButton from "../ui/components/CTAButton";
 
+
 export default function LoginPage() {
   const router = useRouter();
   const [email, setEmail] = useState("");
@@ -13,27 +14,54 @@ export default function LoginPage() {
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (username === "admin" && password === "1234") {
-      localStorage.setItem("user", username);
-      router.push("/");
-    } else {
-      alert("Invalid credentials");
+    setLoading(true);
+    setError("");
+
+    try {
+      const res = await fetch("/api/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setError(data.message || "Login failed");
+        return;
+      }
+
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("userRole", data.role);
+      localStorage.setItem("userName", data.name);
+
+      if (data.role === "seller") {
+        window.location.href = "/seller-dashboard";
+        router.push("/seller-dashboard");
+      } else {
+        window.location.href = "/user-dashboard";
+        router.push("/user-dashboard");
+      }
+    } catch (err) {
+      console.error(err);
+      setError("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="flex flex-col min-h-screen justify-center items-center gap-4">
-      <h2 className="text-2xl font-bold">Login</h2>
-      {error && (
-        <p className="bg-red-100 text-red-600 p-2 rounded w-72 text-center">{error}</p>
-      )}
-      <form onSubmit={handleLogin} className="flex flex-col gap-3 w-72">
+    <div className="login-container">
+      <h2 className="login-title">Login</h2>
+      {error && <p className="login-error">{error}</p>}
+
+      <form onSubmit={handleLogin} className="login-form">
         <input
           type="email"
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="border p-2 rounded"
+          className="login-input"
           required
         />
         <input
@@ -41,7 +69,7 @@ export default function LoginPage() {
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="border p-2 rounded"
+          className="login-input"
           required
         />
         <CTAButton text={loading ? "Logging in..." : "Login"} />
