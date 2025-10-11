@@ -1,6 +1,7 @@
 import { fetchSellerItems } from "@/app/lib/data";
 import Card from "@/app/ui/card/Card";
 
+
 export default async function ItemsGrid ({
     query,
     currentPage
@@ -17,7 +18,7 @@ export default async function ItemsGrid ({
                     <div key={index} className="flex justify-center">
                         <Card key={item.id} name={item.title} images={[{
                             src:  item.imageUrl || "https://i0.wp.com/enfermeriacreativa.com/wp-content/uploads/2019/07/placeholder.png?ssl=1",
-                            link: `/catalog/${item.id}`
+                            link: `/items/${item.id}`
                         }]} />
                     </div>)
             }

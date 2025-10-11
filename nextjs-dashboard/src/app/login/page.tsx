@@ -1,9 +1,9 @@
+
 "use client";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import CTAButton from "../ui/components/CTAButton";
-
 
 export default function LoginPage() {
   const router = useRouter();
@@ -31,19 +31,22 @@ export default function LoginPage() {
         return;
       }
 
+
       localStorage.setItem("token", data.token);
       localStorage.setItem("userRole", data.role);
       localStorage.setItem("userName", data.name);
 
-      if (data.role === "seller") {
-        window.location.href = "/seller-dashboard";
-        router.push("/seller-dashboard");
+
+      if (data.role?.toLowerCase() === "seller") {
+        router.push("/user-dashboard/seller");
+      } else if (data.role?.toLowerCase() === "user") {
+        router.push("/user-dashboard/user");
       } else {
-        window.location.href = "/user-dashboard";
-        router.push("/user-dashboard");
+        
+        router.push("/");
       }
     } catch (err) {
-      console.error(err);
+      console.error("Login error:", err);
       setError("Something went wrong. Please try again.");
     } finally {
       setLoading(false);
