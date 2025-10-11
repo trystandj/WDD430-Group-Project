@@ -35,6 +35,7 @@ export default function LoginPage() {
       localStorage.setItem("token", data.token);
       localStorage.setItem("userRole", data.role);
       localStorage.setItem("userName", data.name);
+      
 
 
       if (data.role?.toLowerCase() === "seller") {

@@ -8,6 +8,7 @@ import { getUserFromLocalStorage } from "../../lib/auth";
 import SellerItems from "../../ui/sellers/SellerItems";
 import SellerStory from "../../ui/sellers/SellerStory";
 import "../../(landingComponents)/sellers/[id]/seller-detail.css";
+import { Int32 } from "mongodb";
 
 type UserProfile = {
   name: string;
@@ -17,6 +18,7 @@ type UserProfile = {
   location?: string;
   joinedAt?: string;
   role?: string;
+  sellerId?: Int32 | null; 
   orders?: any[];
   preferences?: any[];
   stories?: any[];
@@ -28,7 +30,7 @@ export default function UserDashboard() {
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
 
-  // Editing state
+
   const [isEditing, setIsEditing] = useState(false);
   const [editData, setEditData] = useState({
     bio: "",
@@ -36,9 +38,7 @@ export default function UserDashboard() {
     location: "",
   });
 
-  
 
-  // Fetch user profile
   useEffect(() => {
     const user = getUserFromLocalStorage();
     if (!user) {
@@ -47,7 +47,7 @@ export default function UserDashboard() {
     }
 
     const endpoint =
-      user.role === "seller" ? "/api/user/seller" : "/api/user/profile";
+      user.role === "seller" ? "/api/user/seller" : "/api/seller/profile";
 
     fetch(endpoint, {
       headers: { Authorization: `Bearer ${user.token}` },
@@ -63,6 +63,7 @@ export default function UserDashboard() {
           name: data.name,
           email: data.email,
           role: user.role,
+          sellerId: data.sellerId || null,
           orders: data.orders || [],
           preferences: data.preferences || [],
           bio: data.bio || "",
@@ -71,11 +72,10 @@ export default function UserDashboard() {
           joinedAt: data.joinedAt || "",
         };
 
-        // Fetch seller's items and stories
         if (user.role === "seller") {
           const [itemsRes, storiesRes] = await Promise.all([
-            fetch(`/api/items?sellerId=${data._id}`),
-            fetch(`/api/stories?sellerId=${data._id}`),
+            fetch(`/api/items/${data.sellerId}`),
+            fetch(`/api/stories?sellerId=${data.sellerId}`)
           ]);
 
           if (itemsRes.ok) userProfile.items = await itemsRes.json();
@@ -98,6 +98,41 @@ export default function UserDashboard() {
     router.push("/login");
   };
 
+    const [newStory, setNewStory] = useState({ title: "", content: "" });
+
+  const handleNewStoryChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setNewStory({ ...newStory, [e.target.name]: e.target.value });
+  };
+
+  const handleNewStorySubmit = async () => {
+    const user = getUserFromLocalStorage();
+    if (!user) return;
+
+    try {
+      const res = await fetch("/api/stories", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user.token}`,
+        },
+        body: JSON.stringify({
+        title: newStory.title,
+        content: newStory.content,
+      }),
+      });
+
+      if (!res.ok) throw new Error("Failed to add story");
+
+      const addedStory = await res.json();
+      setProfile(prev => prev ? { ...prev, stories: [...(prev.stories || []), addedStory] } : prev);
+      setNewStory({ title: "", content: "" });
+    } catch (err) {
+      console.error(err);
+      alert("Failed to upload story");
+    }
+  };
+
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setEditData({ ...editData, [e.target.name]: e.target.value });
   };
@@ -105,6 +140,7 @@ export default function UserDashboard() {
   const handleSave = async () => {
     if (!profile) return;
     const user = getUserFromLocalStorage();
+    console.log(user);
     if (!user) return;
 
     try {
@@ -123,7 +159,6 @@ export default function UserDashboard() {
       setProfile({ ...profile, ...updatedSeller });
       setIsEditing(false);
 
-      // Refresh the page to reload the latest data
       window.location.reload();
     } catch (err) {
       console.error("Failed to update seller profile:", err);
@@ -206,6 +241,25 @@ export default function UserDashboard() {
 
           {profile.stories && <SellerStory stories={profile.stories} />}
           {profile.items && <SellerItems items={profile.items} />}
+          {profile.role === "seller" && (
+          <section className="seller-upload-story">
+            <h2>Add New Story</h2>
+            <input
+              type="text"
+              name="title"
+              value={newStory.title}
+              onChange={handleNewStoryChange}
+              placeholder="Story Title"
+            />
+            <textarea
+              name="content"
+              value={newStory.content}
+              onChange={handleNewStoryChange}
+              placeholder="Story Content"
+            />
+            <button onClick={handleNewStorySubmit}>Upload Story</button>
+          </section>
+        )}
         </section>
       )}
 

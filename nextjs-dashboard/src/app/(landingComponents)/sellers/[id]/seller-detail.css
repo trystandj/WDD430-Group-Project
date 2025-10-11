@@ -604,3 +604,204 @@
   color: #999a96;
   font-family: 'EB Garamond', serif;
 }
+
+
+
+/* User Dashboard Seller Page */
+.user-card input {
+  display: block;
+  width: 100%;
+  max-width: 400px;
+  padding: 8px 12px;
+  margin-bottom: 10px;
+  border: 1px solid var(--secondary);
+  border-radius: 6px;
+  font-size: 14px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--fifth);
+  background-color: var(--fourth);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.user-card input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 5px rgba(115, 160, 115, 0.3);
+  outline: none;
+}
+
+.user-card button {
+  padding: 8px 16px;
+  margin-right: 10px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-family: Arial, Helvetica, sans-serif;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.user-card button:hover {
+  opacity: 0.9;
+  
+}
+
+.user-card button:nth-of-type(1) {
+  background-color: var(--primary);
+  color: var(--foreground);
+}
+
+.user-card button:nth-of-type(2) {
+  background-color: var(--secondary);
+  color: var(--fifth);
+}
+
+.user-card p {
+  margin-bottom: 8px;
+}
+
+.section-title {
+  margin-bottom: 12px;
+}
+
+@media (max-width: 500px) {
+  .user-card input {
+    max-width: 100%;
+  }
+  .user-card button {
+    width: 48%;
+    margin-bottom: 8px;
+  }
+}
+
+
+.seller-info textarea,
+.seller-info input {
+  display: block;
+  width: 100%;
+  max-width: 400px;
+  padding: 8px 12px;
+  margin-bottom: 10px;
+  border: 1px solid var(--secondary);
+  border-radius: 6px;
+  font-size: 14px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--fifth);
+  background-color: var(--fourth);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.seller-info textarea:focus,
+.seller-info input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 5px rgba(115, 160, 115, 0.3);
+  outline: none;
+}
+
+.seller-info button {
+  padding: 8px 16px;
+  margin-right: 10px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-family: Arial, Helvetica, sans-serif;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.seller-info button:hover {
+  opacity: 0.9;
+}
+
+.seller-info button:nth-of-type(1) {
+  background-color: var(--primary);
+  color: var(--foreground);
+}
+
+.seller-info button:nth-of-type(2) {
+  background-color: var(--secondary);
+  color: var(--fifth);
+}
+
+.seller-profile-bio {
+  margin-bottom: 12px;
+}
+
+.seller-meta,
+.seller-email {
+  margin-bottom: 6px;
+}
+
+@media (max-width: 500px) {
+  .seller-info textarea,
+  .seller-info input {
+    max-width: 100%;
+  }
+  .seller-info button {
+    width: 48%;
+    margin-bottom: 8px;
+  }
+}
+
+
+.seller-upload-story {
+  margin-top: 20px;
+  padding: 16px;
+  border: 1px solid var(--secondary);
+  border-radius: 8px;
+  background-color: var(--fourth);
+  max-width: 600px;
+}
+
+.seller-upload-story h2 {
+  margin-bottom: 12px;
+  color: var(--primary);
+}
+
+.seller-upload-story input,
+.seller-upload-story textarea {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  padding: 8px 12px;
+  margin-bottom: 10px;
+  border: 1px solid var(--secondary);
+  border-radius: 6px;
+  font-size: 14px;
+  font-family: inherit;
+  background-color: var(--background);
+  color: var(--fifth);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.seller-upload-story input:focus,
+.seller-upload-story textarea:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 5px rgba(115, 160, 115, 0.3);
+  outline: none;
+}
+
+.seller-upload-story button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  background-color: var(--primary);
+  color: var(--foreground);
+  transition: background-color 0.2s, opacity 0.2s;
+}
+
+.seller-upload-story button:hover {
+  opacity: 0.9;
+}
+
+@media (max-width: 500px) {
+  .seller-upload-story input,
+  .seller-upload-story textarea {
+    width: 100%;
+  }
+  .seller-upload-story button {
+    width: 48%;
+    margin-bottom: 8px;
+  }
+}

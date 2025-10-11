@@ -16,7 +16,7 @@ export default function ItemDetail({ item, seller, userId = null, username = nul
             {seller && (
               <div className="seller-float">
                 <div className="seller-compact-card">
-                  <Image src={seller.avatarUrl ?? '/images/spoons.webp'} alt={seller.name} className="seller-profile-avatar" width={40} height={40} />
+                  <Image src={seller.avatarUrl || "/images/spoons.webp"} alt={seller.name} className="seller-profile-avatar" width={40} height={40} />
                   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                     <span className="seller-compact-name">{seller.name}</span>
                     <Link href={`/sellers/${seller.id}`} className="seller-compact-button">View Seller</Link>
