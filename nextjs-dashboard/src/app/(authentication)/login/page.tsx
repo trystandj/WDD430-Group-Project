@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import CTAButton from "../ui/components/CTAButton";
+import CTAButton from "@/app/ui/components/CTAButton";
 
 
 export default function LoginPage() {

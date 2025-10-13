@@ -4,6 +4,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "@/app/ui/card/card.module.css";
+import clsx from "clsx";
 
 type ImageData = {
     src: string;
@@ -13,10 +14,12 @@ type ImageData = {
 type SpotlightCardProps = {
     name: string;
     description?: string;
+    price?: number;
     images: ImageData[];
+    tags?: string[];
 };
 
-export default function Card({ name, description, images, children }: 
+export default function Card({ name, description, images, children, tags, price }: 
     SpotlightCardProps & { children?: React.ReactNode }
 ) {
     
@@ -31,35 +34,35 @@ export default function Card({ name, description, images, children }:
             
             {displayImages[0]?.src && (
             // Using external image source (Picsum/placeholder images)
-            <img
-                src={displayImages[0].src}
-                width={300}
-                height={300}
-                alt={name}
-                style={{
-                objectFit: "cover",
-                borderRadius: "8px",
-                transition: "transform 0.2s ease",
-                }}
-                className={styles.cardImage}
-            />
-            
-        
-            // Use this when switching back to local images in /public folder
-            /* 
-            <Image
-                src={displayImages[0].src}
-                width={300}
-                height={300}
-                alt={name}
-                style={{
-                objectFit: "cover",
-                borderRadius: "8px",
-                transition: "transform 0.2s ease",
-                }}
-                className={styles.cardImage}
-            />
-            */
+            <>
+                <img
+                    src={displayImages[0].src}
+                    width={300}
+                    height={300}
+                    alt={name}
+                    style={{
+                    objectFit: "cover",
+                    borderRadius: "8px",
+                    transition: "transform 0.2s ease",
+                    }}
+                    className={styles.cardImage}
+                />
+                <div className={clsx(styles.item__tags, "absolute bottom-3 left-3")}>
+                {
+                    tags?.map((tag, i) =>
+                        <span key={i} className={styles.item__tag}>
+                            #{tag}
+                        </span>
+                    )
+                }
+                </div>
+                {
+                    price && 
+                    <div className={clsx(styles.item__price, "absolute right-3 top-3")}>
+                        ${price}
+                    </div>
+                }
+            </>
             )}
 
             {/* Content */}
