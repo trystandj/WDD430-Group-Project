@@ -26,6 +26,12 @@ export default function ItemDetail({ item, seller, userId = null, username = nul
             )}
           </div>
 
+          <Link href={`/catalog/${item.id}/edit`} className="flex justify-end p-3">
+              <button
+                className="text-black border border-[var(--primary)] bg-[var(--primary)] px-5 py-1 rounded-md hover:cursor-pointer hover:brightness-80"
+              >Edit Item</button>
+            </Link>
+
           <div className="seller-profile-card item-image-wrapper">
             <Image
               src={item.imageUrl}

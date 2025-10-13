@@ -1,7 +1,9 @@
 import React from "react";
 import Image from 'next/image'
+import Link from "next/link";
 
 type Item = {
+  id: number;
   title: string;
   description: string;
   price: number;
@@ -18,6 +20,9 @@ const SellerItems: React.FC<SellerItemsProps> = ({ items }) => {
   return (
     <section className="items-section">
       <h2 className="items-section-title">Items for Sale</h2>
+      <Link href={"/catalog/new-item"}>
+        <button className="text-black border border-[var(--primary)] bg-[var(--primary)] px-5 py-2 mb-3 rounded-md hover:cursor-pointer hover:brightness-80">Create Item</button>
+      </Link>
       <div className="items-grid">
         {items && items.length > 0 ? (
           items.map((item, idx) => (
@@ -40,9 +45,14 @@ const SellerItems: React.FC<SellerItemsProps> = ({ items }) => {
                     </span>
                   ))}
                 </div>
-                <p className="item-date">
-                  Listed on {new Date(item.createdAt).toLocaleDateString()}
-                </p>
+                <div className="flex justify-between items-center">
+                  <p className="item-date">
+                    Listed on {new Date(item.createdAt).toLocaleDateString()}
+                  </p>
+                  <Link href={`/catalog/${item.id}/edit`}>
+                    <button className="text-black border border-[var(--primary)] bg-[var(--primary)] px-5 py-2 rounded-md hover:cursor-pointer hover:brightness-80">Edit Item</button>
+                  </Link>
+                </div>
               </div>
             </div>
           ))

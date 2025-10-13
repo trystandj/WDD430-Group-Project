@@ -26,7 +26,7 @@ export default async function EditItemPage({ params }: { params: { itemId: strin
             title: formData.get("title") as string,
             price: parseFloat(formData.get("price") as string),
             description: formData.get("description") as string,
-            sellerId: formData.get("seller") as number,
+            sellerId: +formData.get("seller"),
             imageUrl: formData.get("imageUrl") as string,
             tags: [formData.get("tags") as string],
             createdAt: item?.createdAt ?? new Date()
@@ -41,7 +41,7 @@ export default async function EditItemPage({ params }: { params: { itemId: strin
 
     return (
         <div className="w-full max-w-[1200px] mx-auto p-[2rem]">
-            <h2 className="text-black">Edit Item</h2>
+            <h2 className="login-title">Edit Item</h2>
             {
                 item && (
                     <ItemForm

@@ -1,6 +1,6 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import CTAButton from "../components/CTAButton";
 import { SellerItem, SellerProfile } from "@/app/lib/definitions";
 import { FormEvent } from "react";
@@ -14,6 +14,7 @@ interface ItemFormProps {
 
 export default function ItemForm({submit, sellers, item, submitText}: ItemFormProps) {
     const searchParams = useSearchParams();
+    const router = useRouter();
 
     async function onSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
@@ -22,8 +23,12 @@ export default function ItemForm({submit, sellers, item, submitText}: ItemFormPr
         await submit(formData);
     }
 
+    const handleBackClick = () => {
+        router.back();
+    }
+
     return (
-        <form className="flex flex-col gap-4" onSubmit={onSubmit}>
+        <form className="flex flex-col gap-4 px-10 py-5 bg-white rounded-xl" onSubmit={onSubmit}>
                 <div>
                     <label htmlFor="title" className="text-black">*Title</label>
                     <input
@@ -90,7 +95,13 @@ export default function ItemForm({submit, sellers, item, submitText}: ItemFormPr
                         placeholder="Ceramics"
                         defaultValue={ item?.tags ?? "" }/>
                 </div>
-                <CTAButton type="submit">{submitText}</CTAButton>
+                <div className="grid gap-5 md:flex md:justify-between pt-3">
+                    <button
+                        className="text-black bg-gray-300 px-10 py-2 border rounded-md hover:cursor-pointer hover:bg-gray-400"
+                        onClick={handleBackClick}
+                    >Cancel</button>
+                    <CTAButton className="row-start-1" type="submit">{submitText}</CTAButton>
+                </div>
             </form>
     )
 }
