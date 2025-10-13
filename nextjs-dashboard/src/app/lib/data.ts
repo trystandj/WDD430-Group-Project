@@ -177,15 +177,6 @@ export async function fetchItemsBySellerId(sellerId: number): Promise<SellerItem
 }
 
 
-
-
-
-
-
-
-
-
-
 // Helper: get stories collection
 async function getStoriesCollection() {
   const client = await clientPromise;
@@ -233,5 +224,76 @@ export async function fetchItemById(id: number): Promise<SellerItem | null> {
   } catch (error) {
     console.error("Database Error:", error);
     throw new Error("Failed to fetch item.");
+  }
+}
+
+// Create new Item
+export async function addItem(newItem: SellerItem): Promise<number> {
+  try {
+    const collection = await getItemsCollection();
+
+    // Ensure required fields are present
+    if (!newItem.id || !newItem.sellerId) {
+      throw new Error("Missing required fields: id or sellerId");
+    }
+
+    // Add timestamp if not provided
+    if (!newItem.createdAt) {
+      newItem.createdAt = new Date();
+    }
+
+    await collection.insertOne(newItem);
+    console.log(`Added new item with id ${newItem.id} for seller ${newItem.sellerId}.`);
+    return newItem.id;
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to add new item.");
+  }
+}
+
+// Update item by id
+export async function updateItem(id: number, updatedFields: Partial<SellerItem>): Promise<number> {
+  try {
+    const collection = await getItemsCollection();
+
+    const result = await collection.updateOne(
+      { id },
+      { $set: { ...updatedFields, updatedAt: new Date() } }
+    );
+
+    if (result.matchedCount === 0) {
+      throw new Error(`No item found with id ${id}.`);
+    }
+
+    console.log(`Updated item with id ${id}.`);
+    return id;
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to update item.");
+  }
+}
+
+export async function fetchLastItemId(): Promise<number | null> {
+  try {
+    console.log("Fetching last item ID...");
+    const collection = await getItemsCollection();
+
+    // Sort by `id` descending (-1) and get the first document
+    const lastItem = await collection
+      .find({})
+      .sort({ id: -1 })
+      .limit(1)
+      .toArray();
+
+    if (lastItem.length === 0) {
+      console.log("No items found in collection.");
+      return null;
+    }
+
+    console.log(`Last item ID: ${lastItem[0].id}`);
+    return lastItem[0].id;
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to fetch last item ID.");
   }
 }

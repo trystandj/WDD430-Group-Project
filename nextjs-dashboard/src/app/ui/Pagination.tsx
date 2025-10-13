@@ -20,7 +20,7 @@ export default function Pagination({ totalPages }: { totalPages: number }) {
 
     return (
         <>
-            <div className="inline-flex text-black">
+            <div className="inline-flex text-black py-4">
                 <PaginationArrow
                 direction="left"
                 href={createPageURL(currentPage - 1)}

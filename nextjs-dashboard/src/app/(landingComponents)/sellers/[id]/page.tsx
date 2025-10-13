@@ -40,7 +40,7 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
         </div>
 
         <SellerStory stories={stories} />
-        <SellerItems items={items} />
+        <SellerItems items={items} sellerId={id} />
       </div>
     </main>
   );

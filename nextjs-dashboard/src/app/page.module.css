@@ -92,18 +92,30 @@ a.secondary {
 }
 
 .footer {
-  grid-row-start: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.footer_doc {
+  order: 1;
   display: flex;
   gap: 24px;
 }
 
-.footer a {
+.footer_copyright {
+  order: 2;
+  text-align: center;
+  padding: 10px;
+}
+
+.footer_doc a {
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-.footer img {
+.footer_doc img {
   flex-shrink: 0;
 }
 
@@ -119,7 +131,7 @@ a.secondary {
     border-color: transparent;
   }
 
-  .footer a:hover {
+  .footer_doc a:hover {
     text-decoration: underline;
     text-underline-offset: 4px;
   }
@@ -153,7 +165,7 @@ a.secondary {
     min-width: auto;
   }
 
-  .footer {
+  .footer_doc {
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;

@@ -52,8 +52,15 @@ export default function Header() {
     <header className={clsx(styles.container, "z-50")}>
       <div>
         <Link href="/">
-          <span>Handcrafted</span>
-          <h1>Haven</h1>
+
+          <Image 
+            src="/logo.png"
+            alt="Hero image"
+            width={142.5}
+            height={45} 
+            fetchPriority="high"
+            className={`${styles.logo} hidden md:block`}
+          />
         </Link>
       </div>
 
