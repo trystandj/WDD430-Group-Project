@@ -1,36 +1,53 @@
 import { NextResponse } from "next/server";
-import { fetchItemById } from "../../../lib/data";
-import { updateItem } from "@/app/lib/data";
+import clientPromise from "@/app/lib/mongodb";
 
 interface Params {
   params: { id: string };
 }
 
-export async function GET(req: Request, { params }: Params) {
+export async function GET(req: Request, context: Params) {
   try {
-    const { id } = params;
-    const item = await fetchItemById(id);
+    const { id } = await context.params;
+    const numericSellerId = Number(id); 
+    console.log("Querying items for sellerId:", numericSellerId);
 
-    if (!item) {
-      return NextResponse.json({ error: "Item not found" }, { status: 404 });
-    }
+    const client = await clientPromise;
+    const db = client.db("marketplace");
 
-    return NextResponse.json(item);
+    const items = await db
+      .collection("items")
+      .find({ sellerId: numericSellerId })
+      .toArray();
+
+    console.log("Found items:", items.length);
+    return NextResponse.json(items);
   } catch (error) {
-    console.error("Error fetching item by id:", error);
-    return NextResponse.json({ error: "Failed to fetch item" }, { status: 500 });
+    console.error("Error fetching items by sellerId:", error);
+    return NextResponse.json({ error: "Failed to fetch items" }, { status: 500 });
   }
 }
 
 
-export async function PUTitem(req: Request, { params }: { params: { id: string } }) {
-    try {
-        const body = await req.json();
-        const id = Number(params.id);
-        await updateItem(id, body);
-        return NextResponse.json({ message: `Item ${id} updated successfully` });
-    } catch (error) {
-        console.error(error);
-        return NextResponse.json({ error: "Failed to update item" }, { status: 500 });
-    }
+export async function PUT(req: Request, context: { params: Promise<{ id: string }> }) {
+  try {
+    const body = await req.json();
+
+
+    const { id } = await context.params;
+    const numericId = Number(id);
+
+    console.log("Updating item:", numericId, "with data:", body);
+
+    await updateItem(numericId, body);
+
+    return NextResponse.json({
+      message: `Item ${numericId} updated successfully`,
+    });
+  } catch (error) {
+    console.error("Error updating item:", error);
+    return NextResponse.json(
+      { error: "Failed to update item" },
+      { status: 500 }
+    );
+  }
 }

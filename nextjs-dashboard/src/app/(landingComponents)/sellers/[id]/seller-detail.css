@@ -15,8 +15,15 @@
   padding: 1.5rem;
   background: #ececec;
   transition: all 0.3s ease;
+ 
 }
 
+.storysection {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: center;
+}
 
 
 /* Seller Header Section */
@@ -744,12 +751,14 @@
 
 
 .seller-upload-story {
-  margin-top: 20px;
-  padding: 16px;
+  margin: 40px auto;
+  padding: 32px; 
   border: 1px solid var(--secondary);
-  border-radius: 8px;
+  border-radius: 12px;
   background-color: var(--fourth);
-  max-width: 600px;
+  width: 1200px;
+  max-width: 100%;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1); 
 }
 
 .seller-upload-story h2 {
@@ -800,6 +809,8 @@
   .seller-upload-story textarea {
     width: 100%;
   }
+
+  
   .seller-upload-story button {
     width: 48%;
     margin-bottom: 8px;

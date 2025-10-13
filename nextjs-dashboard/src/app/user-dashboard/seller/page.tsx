@@ -238,10 +238,8 @@ export default function UserDashboard() {
               )}
             </div>
           </div>
-
+           <div className="storysection">
           {profile.stories && <SellerStory stories={profile.stories} />}
-          {profile.items && <SellerItems items={profile.items} />}
-          {profile.role === "seller" && (
           <section className="seller-upload-story">
             <h2>Add New Story</h2>
             <input
@@ -259,7 +257,12 @@ export default function UserDashboard() {
             />
             <button onClick={handleNewStorySubmit}>Upload Story</button>
           </section>
-        )}
+          <SellerItems
+  items={profile.items || []}
+  sellerId={String(profile.sellerId)}
+  isProfilePage={true} 
+/>
+          </div>   
         </section>
       )}
 
