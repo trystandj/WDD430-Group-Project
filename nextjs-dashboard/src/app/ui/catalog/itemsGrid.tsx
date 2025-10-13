@@ -15,10 +15,29 @@ export default async function ItemsGrid ({
             {
                 items.map((item, index) =>
                     <div key={index} className="flex justify-center">
-                        <Card key={item.id} name={item.title} images={[{
+                        <Card key={item.id}
+                            name={item.title}
+                            tags={item.tags}
+                            price={item.price}
+                            images={[{
                             src:  item.imageUrl || "https://i0.wp.com/enfermeriacreativa.com/wp-content/uploads/2019/07/placeholder.png?ssl=1",
                             link: `/catalog/${item.id}`
-                        }]} />
+                        }]}>
+                            <div className="">
+                                <p>$ <span>{item.price}</span></p>
+                                <div className="flex flex-wrap gap-[0.25rem]">
+                                    {
+                                        item.tags.map((tag, i) => (
+                                            <span
+                                                key={i}
+                                                className="bg-[#eedb61] text-[#2c2b2a] rounded-md px-[0.5rem] py-[.25rem]">
+                                                #{tag}
+                                            </span>
+                                        ))
+                                    }
+                                </div>
+                            </div>
+                        </Card>
                     </div>)
             }
         </div>

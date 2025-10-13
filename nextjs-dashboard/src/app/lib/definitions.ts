@@ -1,6 +1,7 @@
 export interface SellerProfile {
   _id?: string;
   id: number; 
+  userId: number;
   name: string;
   email: string;
   bio: string;

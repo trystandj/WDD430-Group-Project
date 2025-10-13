@@ -10,7 +10,7 @@ export default function ClientWrapper({ children }: { children: ReactNode }) {
 
   return (
     <>
-      <main className="flex-grow">{children}</main>
+      <main className="flex-grow pt-[5rem] md:pt-0 m-0">{children}</main>
       
     </>
   );
