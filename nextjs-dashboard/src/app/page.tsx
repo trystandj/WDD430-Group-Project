@@ -8,6 +8,7 @@ import ItemSpotlightUI from "./(landingComponents)/ItemSpotlight/page";
 import HeroImage from "./ui/HeroImage";
 
 
+
 export default function Home() {
   const user =
     typeof window !== "undefined" ? localStorage.getItem("user") : null;
@@ -73,11 +74,11 @@ export default function Home() {
          <p className="text-lg text-gray-600">Find amazing sellers or start selling today.</p>
          <CTAButton text="Get Started" onClick={() => window.location.href = '/signup'} />
          </div>}
-         
       </main>
 
       
       <footer className={styles.footer}>
+      <div className={styles.footer_doc}>
         <a
           href="https://nextjs.org/learn"
           target="_blank"
@@ -102,6 +103,8 @@ export default function Home() {
           <Image aria-hidden src="/globe.svg" alt="Globe icon" width={16} height={16} />
           Go to nextjs.org →
         </a>
+        </div>
+        <div className={styles.footer_copyright}><p>© 2025 All rights reserved.</p></div>
       </footer>
     </div>
   );
