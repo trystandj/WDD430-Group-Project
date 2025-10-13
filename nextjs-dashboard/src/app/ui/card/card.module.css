@@ -316,15 +316,18 @@
 }
 
 /* Item Price */
-.item-price {
-  color: #73A073;
+.item__price {
+  background: #73A073;
+  color: #2c2b2a;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
   font-weight: 600;
   font-size: 1rem;
   margin: 0;
 }
 
 /* Item Tags Container */
-.item-tags {
+.item__tags {
   display: flex;
   flex-wrap: wrap;
   gap: 0.25rem;
@@ -332,7 +335,7 @@
 }
 
 /* Individual Item Tag */
-.item-tag {
+.item__tag {
   background: #eedb61;
   color: #2c2b2a;
   font-size: 0.75rem;

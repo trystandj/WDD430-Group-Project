@@ -1,7 +1,8 @@
 import Search from "@/app/ui/Search";
-import { fetchItemsAmount } from "../../lib/data";
+import { fetchItemsAmount } from "@/app/lib/data";
 import ItemsGrid from "@/app/ui/catalog/itemsGrid";
 import Pagination from "@/app/ui/Pagination";
+import Link from "next/link";
 
 export default async function CatalogPage(props: {
     searchParams?:Promise<{
@@ -28,6 +29,9 @@ export default async function CatalogPage(props: {
             <div className="mt-5 flex w-full justify-center">
                 <Pagination totalPages={totalPages} />
             </div>
+                <Link href="/catalog/new-item">
+                <p className="text-black">Add Item</p>
+                </Link>
         </div>
     );
 }

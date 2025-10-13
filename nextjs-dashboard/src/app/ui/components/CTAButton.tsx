@@ -1,19 +1,21 @@
 "use client";
-import React from "react";
+import clsx from "clsx";
+import React, { ButtonHTMLAttributes } from "react";
 
-interface CTAButtonProps {
-  text: string;
+interface CTAButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  text?: string;
   onClick?: () => void;
   className?: string; 
 }
 
-const CTAButton: React.FC<CTAButtonProps> = ({ text, onClick, className }) => {
+const CTAButton: React.FC<CTAButtonProps> = ({ text, onClick, className, ...props }) => {
   return (
     <button
       onClick={onClick}
-      className={`hero-cta ${className ?? ""}`} 
+      className={clsx(`hero-cta ${className ?? ""}`)}
+      {...props}
     >
-      {text}
+      {text ?? props.children}
     </button>
   );
 };
