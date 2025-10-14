@@ -58,7 +58,7 @@ export default function ItemDetail({ item, seller, userId = null, username = nul
           </div>
 
           <div className="leave-review-section" style={{ marginTop: '2rem' }}>
-            <ReviewForm productId={String(item.id)} itemId={item.id} sellerId={seller?.id} userId={userId} username={username} />
+            <ReviewForm productId={String(item.id)} itemId={item.id} sellerId={seller?.id} />
           </div>
 
           <hr className="reviews-divider" />

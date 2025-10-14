@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
@@ -70,7 +70,7 @@ export default function ItemForm({ submit, sellers, item, submitText }: ItemForm
                         defaultValue={item?.sellerId ?? searchParams.get("sellerId") ?? ""} required>
                         <option key="-1" value="" disabled>--- Select a Seller ---</option>
                         {
-                            sellers.map((seller, index) => (
+                            sellers.map((seller) => (
                                 <option key={seller.id} value={seller.id}>{seller.name}</option>
                             ))
                         }

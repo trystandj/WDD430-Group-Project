@@ -18,7 +18,7 @@ export default async function EditItemPage({ params }: { params: { itemId: strin
     }));
 
 
-    async function handleSubmit(formData: any) {
+    async function handleSubmit(formData: FormData) {
         "use server";
 
         const updatedItem: SellerItem = {
@@ -26,7 +26,7 @@ export default async function EditItemPage({ params }: { params: { itemId: strin
             title: formData.get("title") as string,
             price: parseFloat(formData.get("price") as string),
             description: formData.get("description") as string,
-            sellerId: +formData.get("seller"),
+            sellerId: +(formData.get("seller") ?? "0"),
             imageUrl: formData.get("imageUrl") as string,
             tags: [formData.get("tags") as string],
             createdAt: item?.createdAt ?? new Date()
