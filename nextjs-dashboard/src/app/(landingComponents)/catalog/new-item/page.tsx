@@ -14,17 +14,22 @@ export default async function NewItemPage() {
     }));
 
 
-    async function handleSubmit(formData: any) {
+    async function handleSubmit(formData: FormData) {
         "use server";
 
         const lastId = await fetchLastItemId() ?? 0;
+
+        const sellerValue = formData.get("seller");
+        if (!sellerValue) {
+            throw new Error("Seller is required");
+        }
 
         const item: SellerItem = {
             id: lastId + 1,
             title: formData.get("title") as string,
             price: parseFloat(formData.get("price") as string),
             description: formData.get("description") as string,
-            sellerId: +formData.get("seller"),
+            sellerId: +sellerValue,
             imageUrl: formData.get("imageUrl") as string,
             tags: [formData.get("tags") as string],
             createdAt: new Date()
