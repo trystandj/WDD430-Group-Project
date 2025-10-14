@@ -6,7 +6,7 @@ import { SellerProfile, SellerItem } from '@/app/lib/definitions'
 import ReviewsClient from '@/app/components/[reviews]/ReviewsClient'
 import ReviewForm from '@/app/components/[reviews]/reviewForm'
 
-export default function ItemDetail({ item, seller, userId = null, username = null }: { item: SellerItem; seller: SellerProfile | null; userId?: string | null; username?: string | null }) {
+export default function ItemDetail({ item, seller }: { item: SellerItem; seller: SellerProfile | null }) {
   return (
     <main className="seller-detail-page item-page-container">
       <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'flex-start' }}>
@@ -64,7 +64,6 @@ export default function ItemDetail({ item, seller, userId = null, username = nul
           <hr className="reviews-divider" />
 
           <div className="reviews-section">
-
             <ReviewsClient productId={String(item.id)} itemId={item.id} />
           </div>
         </div>

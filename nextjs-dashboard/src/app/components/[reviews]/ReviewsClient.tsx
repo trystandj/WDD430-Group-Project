@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client"
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import ReviewSummary from '@/app/components/[reviews]/reviewSummary'
 import ReviewList from '@/app/components/[reviews]/reviewList'
 
@@ -24,7 +25,7 @@ export default function ReviewsClient({ productId, itemId, initialReviews = [] }
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  const fetchReviews = async () => {
+  const fetchReviews = useCallback(async () => {
     if (!productId && itemId == null) return
 
     setLoading(true)
@@ -47,11 +48,11 @@ export default function ReviewsClient({ productId, itemId, initialReviews = [] }
     } finally {
       setLoading(false)
     }
-  }
+  }, [productId, itemId])
 
   useEffect(() => {
     fetchReviews()
-  }, [productId, itemId])
+  }, [fetchReviews])
 
   useEffect(() => {
     const handler = (e: Event) => {

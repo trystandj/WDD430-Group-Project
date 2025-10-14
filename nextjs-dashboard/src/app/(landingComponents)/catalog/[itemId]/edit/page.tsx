@@ -1,4 +1,4 @@
-import { addItem, fetchItemById, fetchLastItemId, fetchSellerProfiles, updateItem } from "@/app/lib/data";
+import { fetchItemById, fetchSellerProfiles, updateItem } from "@/app/lib/data";
 import { SellerItem, SellerProfile } from "@/app/lib/definitions";
 import ItemForm from "@/app/ui/forms/ItemForm";
 import { redirect } from "next/navigation";

@@ -2,7 +2,6 @@ import Search from "@/app/ui/Search";
 import { fetchItemsAmount } from "@/app/lib/data";
 import ItemsGrid from "@/app/ui/catalog/itemsGrid";
 import Pagination from "@/app/ui/Pagination";
-import Link from "next/link";
 
 
 export default async function CatalogPage(props: {

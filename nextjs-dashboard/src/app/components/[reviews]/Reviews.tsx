@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import clientPromise from '@/app/lib/mongodb'
 import ReviewsClient from '@/app/components/[reviews]/ReviewsClient'
 
