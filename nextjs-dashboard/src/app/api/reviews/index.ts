@@ -4,7 +4,7 @@ import { Review } from "@/models/reviewModel";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const client = await clientPromise;
-  const db = client.db("handcraftedHaven");
+  const db = client.db("marketplace");
 
   if (req.method === "POST") {
     try {

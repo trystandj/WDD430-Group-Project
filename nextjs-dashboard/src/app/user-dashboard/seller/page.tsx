@@ -77,8 +77,12 @@ export default function UserDashboard() {
             fetch(`/api/items/${data.sellerId}`),
             fetch(`/api/stories?sellerId=${data.sellerId}`)
           ]);
+    
 
-          if (itemsRes.ok) userProfile.items = await itemsRes.json();
+          if (itemsRes.ok) {
+  const itemsJson = await itemsRes.json();
+  userProfile.items = itemsJson.data || [];
+}
           if (storiesRes.ok) userProfile.stories = await storiesRes.json();
         }
 
@@ -152,6 +156,7 @@ export default function UserDashboard() {
         },
         body: JSON.stringify(editData),
       });
+      
 
       if (!res.ok) throw new Error("Failed to update profile");
 
@@ -266,7 +271,7 @@ export default function UserDashboard() {
         </section>
       )}
 
-      <section className="user-card">
+      {/* <section className="user-card">
         <h2 className="section-title">Orders / Preferences</h2>
         {profile.orders?.length || profile.preferences?.length ? (
           <ul className="data-list">
@@ -280,7 +285,7 @@ export default function UserDashboard() {
         ) : (
           <p>No orders or preferences yet.</p>
         )}
-      </section>
+      </section> */}
     </div>
   );
 

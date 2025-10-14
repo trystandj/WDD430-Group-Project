@@ -10,7 +10,7 @@ interface ReviewsProps {
 
 export default async function Reviews({ productId, itemId, userId = null, username = null }: ReviewsProps) {
   const client = await clientPromise
-  const db = client.db('handcraftedHaven')
+  const db = client.db('marketplace')
 
   const query: Record<string, unknown> = {}
   if (typeof itemId === 'number') {

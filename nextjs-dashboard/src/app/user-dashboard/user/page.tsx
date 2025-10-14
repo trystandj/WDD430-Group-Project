@@ -113,7 +113,7 @@ export default function UserDashboard() {
         </section>
       )}
 
-      <section className="user-card">
+      {/* <section className="user-card">
         <h2 className="section-title">Orders / Preferences</h2>
         {profile.orders?.length || profile.preferences?.length ? (
           <ul className="data-list">
@@ -127,7 +127,7 @@ export default function UserDashboard() {
         ) : (
           <p>No orders or preferences yet.</p>
         )}
-      </section>
+      </section> */}
     </div>
   );
 }
