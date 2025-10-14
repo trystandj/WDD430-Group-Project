@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import styles from "./page.module.css";
 import CTAButton from "./ui/components/CTAButton";
 import ItemSpotlightUI from "./(landingComponents)/ItemSpotlight/page";
@@ -10,10 +9,7 @@ import HeroImage from "./ui/HeroImage";
 
 
 export default function Home() {
-  const user =
-    typeof window !== "undefined" ? localStorage.getItem("user") : null;
-
-
+  
   const heroImages = [
     {
       src: "/hero.jpg",

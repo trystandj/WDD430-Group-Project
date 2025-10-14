@@ -6,6 +6,7 @@ import SellerItems from "./SellerItems";
 import SellerStory from "./SellerStory";
 
 type Item = {
+  id: number;
   title: string;
   description: string;
   price: number;
@@ -22,6 +23,7 @@ type Story = {
 };
 
 type SellerProfile = {
+  id: number;
   name: string;
   email: string;
   items: Item[];
@@ -57,6 +59,7 @@ export default function SellerDashboard() {
           router.push("/login");
         } else {
           setProfile({
+            id: data.id,
             name: data.name,
             email: data.email,
             items: data.items || [],
@@ -94,7 +97,7 @@ export default function SellerDashboard() {
         </button>
       </div>
 
-      <SellerItems items={profile.items} />
+      <SellerItems items={profile.items} sellerId={String(profile.id)} />
 
   
       <SellerStory stories={profile.stories} />

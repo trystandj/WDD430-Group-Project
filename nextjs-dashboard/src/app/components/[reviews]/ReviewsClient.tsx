@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+
 "use client"
 import React, { useEffect, useState, useCallback } from 'react'
 import ReviewSummary from '@/app/components/[reviews]/reviewSummary'
