@@ -144,7 +144,7 @@ export default function UserDashboard() {
   const handleSave = async () => {
     if (!profile) return;
     const user = getUserFromLocalStorage();
-    console.log(user);
+  
     if (!user) return;
 
     try {

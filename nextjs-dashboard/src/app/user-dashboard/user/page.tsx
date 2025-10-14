@@ -30,7 +30,7 @@ export default function UserDashboard() {
     })
       .then(res => res.json())
       .then(data => {
-        if (data.message) return router.push("/login"); // token invalid
+        if (data.message) return router.push("/login"); 
         setProfile(data);
         setEditData({ name: data.name, email: data.email });
       })

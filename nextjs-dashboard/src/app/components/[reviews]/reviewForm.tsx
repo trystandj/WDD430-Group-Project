@@ -17,7 +17,7 @@ export default function ReviewForm({ productId, itemId, sellerId }: ReviewFormPr
   const [error, setError] = useState("");
   const [user, setUser] = useState<{ id: string; username: string } | null>(null);
 
-  // Fetch logged-in user
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) return;
@@ -38,12 +38,12 @@ export default function ReviewForm({ productId, itemId, sellerId }: ReviewFormPr
     fetchUser();
   }, []);
 
-  // Handle form submission
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
 
-    if (!user) return; // Safety check
+    if (!user) return; 
 
     if (rating === 0) {
       setError("Please select a rating.");
@@ -84,7 +84,7 @@ export default function ReviewForm({ productId, itemId, sellerId }: ReviewFormPr
     }
   };
 
-  // Show login prompt if user not logged in
+
   if (!user) {
     return (
       <div className="p-4 border rounded-md bg-surface dark:bg-surface-dark border-muted dark:border-muted-dark max-w-3xl mx-auto text-center">

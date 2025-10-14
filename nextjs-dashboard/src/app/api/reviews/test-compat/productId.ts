@@ -19,7 +19,7 @@ export default async function handler(req: ReqLike, res: ResLike) {
     const productId = req.query?.productId ?? ''
     const url = `http://localhost/api/reviews/${encodeURIComponent(String(productId))}`
     const reqObj = new Request(url, { method: 'GET' })
-    // App Router GET handler accepts (request: NextRequest, context) where params is a Promise
+   
     const resp = await getHandler(
       reqObj as unknown as NextRequest,
       { params: Promise.resolve({ productId: String(productId) }) } as unknown as RouteContext,

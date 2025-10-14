@@ -53,7 +53,7 @@ export async function PUT(req: NextRequest) {
       return NextResponse.json({ message: "Update failed" }, { status: 400 });
     }
 
-    // Return the updated user info
+
     const updatedUser = await db.collection("users").findOne({ _id: new ObjectId(decoded.userId) });
     const { password, ...safeUser } = updatedUser!;
     return NextResponse.json(safeUser);

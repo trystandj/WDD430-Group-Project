@@ -10,7 +10,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   if (req.method === "GET") {
     try {
-      // If the path param is numeric (e.g. /api/reviews/4), treat it as itemId.
+     
       const maybeNumber = Number(productIdStr);
       const isNumeric = !Number.isNaN(maybeNumber);
 
@@ -22,7 +22,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         .sort({ createdAt: -1 })
         .toArray();
 
-      // Convert MongoDB ObjectId to string for _id and preserve itemId/sellerId
+    
       type RawReview = {
         _id: { toString(): string } | string;
         productId?: string;

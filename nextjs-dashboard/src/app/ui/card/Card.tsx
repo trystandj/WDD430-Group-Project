@@ -33,7 +33,7 @@ export default function Card({ name, description, images, children, tags, price 
         <div className={styles.card}>
             
             {displayImages[0]?.src && (
-            // Using external image source (Picsum/placeholder images)
+
             <>
                 <Image 
                     src={displayImages[0].src}

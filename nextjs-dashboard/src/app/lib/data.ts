@@ -6,10 +6,6 @@ import { SellerStory } from "./definitions";
 
 
 
-
-
-
-// Helper: get collection
 async function getCollection() {
   const client = await clientPromise;
   const db = client.db("marketplace"); 

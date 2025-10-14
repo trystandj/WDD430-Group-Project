@@ -1,4 +1,4 @@
-'use client'; // Required to use hooks
+'use client'; 
 
 import { useEffect, useState } from "react";
 import Image from "next/image";

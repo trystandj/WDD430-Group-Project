@@ -13,7 +13,7 @@ type ResLike = {
 
 export default async function handler(req: ReqLike, res: ResLike) {
   if (req.method === 'POST') {
-    // adapt body into Request
+
     const body = (req.body ?? {}) as Record<string, unknown>
     const reqObj = new Request('http://localhost/api/reviews', {
       method: 'POST',

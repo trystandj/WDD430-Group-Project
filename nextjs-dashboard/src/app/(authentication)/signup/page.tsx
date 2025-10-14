@@ -19,7 +19,7 @@ export default function SignupPage() {
       });
 
       const data = await res.json();
-      // create model
+    
       if (res.ok) {
         alert("Signup successful!");
         router.push("/");

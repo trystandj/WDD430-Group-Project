@@ -8,7 +8,6 @@ export default async function EditItemPage({ params }: { params: { itemId: strin
     const sellers = await fetchSellerProfiles();
     const item = await fetchItemById(itemId);
 
-    console.log(itemId, item)
 
     const safeSellers = sellers.map(s => ({
         ...s,
