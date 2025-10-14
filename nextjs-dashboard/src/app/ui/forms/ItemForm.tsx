@@ -6,13 +6,13 @@ import { SellerItem, SellerProfile } from "@/app/lib/definitions";
 import { FormEvent } from "react";
 
 interface ItemFormProps {
-    submit: any;
+    submit: (formData: FormData) => Promise<void>;
     item?: SellerItem;
     sellers: SellerProfile[];
     submitText: string;
 }
 
-export default function ItemForm({submit, sellers, item, submitText}: ItemFormProps) {
+export default function ItemForm({ submit, sellers, item, submitText }: ItemFormProps) {
     const searchParams = useSearchParams();
     const router = useRouter();
 
