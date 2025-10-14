@@ -2,6 +2,7 @@ import { addItem, fetchLastItemId, fetchSellerProfiles } from "@/app/lib/data";
 import { SellerItem, SellerProfile } from "@/app/lib/definitions";
 import ItemForm from "@/app/ui/forms/ItemForm";
 import { redirect } from "next/navigation";
+import { Suspense } from "react";
 
 export default async function NewItemPage() {
     const sellers = await fetchSellerProfiles();
@@ -45,10 +46,12 @@ export default async function NewItemPage() {
     return (
         <div className="w-full max-w-[1200px] mx-auto p-[2rem]">
             <h2 className="login-title">New Item</h2>
-            <ItemForm
-                submit={handleSubmit}
-                sellers={safeSellers as unknown as Array<SellerProfile>}
-                submitText="Add New Item"/>
+            <Suspense fallback={<div className="text-center py-10">Loading form...</div>}>
+                <ItemForm
+                    submit={handleSubmit}
+                    sellers={safeSellers as unknown as Array<SellerProfile>}
+                    submitText="Add New Item"/>
+            </Suspense>
         </div>
     )
 }
