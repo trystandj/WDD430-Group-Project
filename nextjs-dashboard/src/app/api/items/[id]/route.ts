@@ -1,14 +1,28 @@
-import { NextResponse } from "next/server";
-import { updateItem } from "@/app/lib/data";
+import { NextRequest, NextResponse } from "next/server";
+import clientPromise from "@/app/lib/mongodb";
 
-export async function PUTitem(req: Request, { params }: { params: { id: string } }) {
-    try {
-        const body = await req.json();
-        const id = Number(params.id);
-        await updateItem(id, body);
-        return NextResponse.json({ message: `Item ${id} updated successfully` });
-    } catch (error) {
-        console.error(error);
-        return NextResponse.json({ error: "Failed to update item" }, { status: 500 });
-    }
+interface Params {
+  params: Promise<{ id: string }>;
+}
+
+export async function GET(req: NextRequest, context: Params) {
+  try {
+    const { id } = await context.params; 
+    const sellerId = Number(id);
+
+    if (isNaN(sellerId)) throw new Error("Invalid sellerId");
+
+    const client = await clientPromise;
+    const db = client.db("marketplace");
+
+    const items = await db.collection("items").find({ sellerId }).toArray();
+
+    return NextResponse.json({ success: true, data: items });
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json(
+      { success: false, message: "Failed to fetch items" },
+      { status: 500 }
+    );
+  }
 }

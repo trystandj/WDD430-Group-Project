@@ -19,7 +19,7 @@ export default async function ItemPage({ params }: { params: { itemId: string } 
 
   return (
     <main className="p-6">
-      <ItemDetail item={item} seller={seller} userId={null} username={null} />
+      <ItemDetail item={item} seller={seller} />
     </main>
   )
 }

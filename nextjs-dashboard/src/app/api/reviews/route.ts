@@ -17,6 +17,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ success: false, message: "Missing required fields: productId or itemId, userId, username, rating, comment" }, { status: 400 });
     }
 
+    
     const review: Review = {
       productId: productId ?? undefined,
       itemId: typeof itemId === "number" ? itemId : undefined,
@@ -40,7 +41,7 @@ export async function POST(req: Request) {
     };
 
     const client = await clientPromise;
-    const db = client.db("handcraftedHaven");
+    const db = client.db("marketplace");
   const result = await db.collection("reviews").insertOne(reviewToInsert as unknown as Record<string, unknown>);
 
     return NextResponse.json({ success: true, data: { ...reviewToInsert, _id: result.insertedId.toString() } }, { status: 201 });

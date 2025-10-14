@@ -35,7 +35,7 @@ export default function Card({ name, description, images, children, tags, price 
             {displayImages[0]?.src && (
             // Using external image source (Picsum/placeholder images)
             <>
-                <img
+                <Image 
                     src={displayImages[0].src}
                     width={300}
                     height={300}

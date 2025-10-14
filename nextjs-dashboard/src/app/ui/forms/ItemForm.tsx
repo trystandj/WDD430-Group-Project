@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
@@ -6,13 +7,13 @@ import { SellerItem, SellerProfile } from "@/app/lib/definitions";
 import { FormEvent } from "react";
 
 interface ItemFormProps {
-    submit: any;
+    submit: (formData: FormData) => Promise<void>;
     item?: SellerItem;
     sellers: SellerProfile[];
     submitText: string;
 }
 
-export default function ItemForm({submit, sellers, item, submitText}: ItemFormProps) {
+export default function ItemForm({ submit, sellers, item, submitText }: ItemFormProps) {
     const searchParams = useSearchParams();
     const router = useRouter();
 
@@ -69,7 +70,7 @@ export default function ItemForm({submit, sellers, item, submitText}: ItemFormPr
                         defaultValue={item?.sellerId ?? searchParams.get("sellerId") ?? ""} required>
                         <option key="-1" value="" disabled>--- Select a Seller ---</option>
                         {
-                            sellers.map((seller, index) => (
+                            sellers.map((seller) => (
                                 <option key={seller.id} value={seller.id}>{seller.name}</option>
                             ))
                         }

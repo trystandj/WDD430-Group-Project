@@ -7,7 +7,7 @@ type RouteContext = { params: Promise<{ productId: string }> }
 export async function GET(req: NextRequest, context: RouteContext) {
   try {
     const client = await clientPromise;
-    const db = client.db("handcraftedHaven");
+    const db = client.db("marketplace");
 
     const maybeParams = context?.params ?? {};
     const resolvedParams = maybeParams instanceof Promise ? await maybeParams : maybeParams;

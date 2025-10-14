@@ -146,6 +146,7 @@ export async function fetchSellerItems(
   }
 }
 
+
 // Fetch 6 random items
 export async function fetchRandomSellerItems(): Promise<SellerItem[]> {
   try {

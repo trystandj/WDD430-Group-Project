@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import clientPromise from '@/app/lib/mongodb'
 import ReviewsClient from '@/app/components/[reviews]/ReviewsClient'
 
@@ -10,7 +11,7 @@ interface ReviewsProps {
 
 export default async function Reviews({ productId, itemId, userId = null, username = null }: ReviewsProps) {
   const client = await clientPromise
-  const db = client.db('handcraftedHaven')
+  const db = client.db('marketplace')
 
   const query: Record<string, unknown> = {}
   if (typeof itemId === 'number') {

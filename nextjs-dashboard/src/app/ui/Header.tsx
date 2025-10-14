@@ -8,21 +8,17 @@ import { useState, useEffect } from "react";
 
 interface NavigationProps {
   mobile: boolean;
-  isLoggedIn: boolean;
+  dashboardPath: string;
 }
 
-function Navigation({ mobile, isLoggedIn }: NavigationProps) {
+function Navigation({ mobile, dashboardPath }: NavigationProps) {
   return (
     <div className={styles.linksContainer}>
       <nav className={clsx(mobile ? styles.linksMobile : styles.links)}>
         <Link href="/">Home</Link>
         <Link href="/sellers">Sellers</Link>
         <Link href="/catalog">Catalog</Link>
-        {mobile && (
-          <Link href={isLoggedIn ? "/user-dashboard" : "/login"}>
-            {isLoggedIn ? "Profile" : "Login"}
-          </Link>
-        )}
+        {mobile && <Link href={dashboardPath}>Profile</Link>}
       </nav>
     </div>
   );
@@ -30,24 +26,27 @@ function Navigation({ mobile, isLoggedIn }: NavigationProps) {
 
 export default function Header() {
   const [visible, setVisible] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [dashboardPath, setDashboardPath] = useState("/login");
 
-  // Check login state on mount
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const token = localStorage.getItem("token");
-      setIsLoggedIn(!!token);
+  const updateDashboardPath = () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      setDashboardPath("/login");
+      return;
     }
-  }, []);
 
-  useEffect(() => {
-  const handleStorageChange = () => {
-    setIsLoggedIn(!!localStorage.getItem("token"));
+    const role = localStorage.getItem("userRole");
+    if (role === "seller") setDashboardPath("/user-dashboard/seller");
+    else if (role === "user") setDashboardPath("/user-dashboard/user");
+    else setDashboardPath("/login");
   };
 
-  window.addEventListener("storage", handleStorageChange);
-  return () => window.removeEventListener("storage", handleStorageChange);
-}, []);
+  useEffect(() => {
+    updateDashboardPath();
+
+    window.addEventListener("storage", updateDashboardPath);
+    return () => window.removeEventListener("storage", updateDashboardPath);
+  }, []);
 
   return (
     <header className={clsx(styles.container, "z-50")}>
@@ -65,15 +64,13 @@ export default function Header() {
         </Link>
       </div>
 
-      <Navigation mobile={false} isLoggedIn={isLoggedIn} />
+      <Navigation mobile={false} dashboardPath={dashboardPath} />
 
-      {visible && <Navigation mobile={true} isLoggedIn={isLoggedIn} />}
+      {visible && <Navigation mobile={true} dashboardPath={dashboardPath} />}
 
       <div>
-        <Link href={isLoggedIn ? "/user-dashboard" : "/login"}>
-          <button className={styles.button}>
-            {isLoggedIn ? "Profile" : "Login"}
-          </button>
+        <Link href={dashboardPath}>
+          <button className={styles.button}>Profile</button>
         </Link>
 
         <button

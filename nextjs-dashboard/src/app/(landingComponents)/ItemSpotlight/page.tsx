@@ -64,7 +64,7 @@ export default function ItemSpotlightUI() {
       <div className={styles.Card_Container}>
        
 
-        <SellerItems items={randomItems} />
+        <SellerItems items={randomItems} sellerId={""} />
       </div>
     </section>
   );

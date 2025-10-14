@@ -6,6 +6,7 @@ import SellerItems from "./SellerItems";
 import SellerStory from "./SellerStory";
 
 type Item = {
+  id: number;
   title: string;
   description: string;
   price: number;
@@ -22,6 +23,7 @@ type Story = {
 };
 
 type SellerProfile = {
+  id: number;
   name: string;
   email: string;
   items: Item[];
@@ -44,7 +46,7 @@ export default function SellerDashboard() {
       return;
     }
 
-    // Fetch seller profile from API
+   
     fetch("/api/seller/profile", {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -53,10 +55,11 @@ export default function SellerDashboard() {
       .then((res) => res.json())
       .then((data) => {
         if (data.message) {
-          // Token invalid or seller not found
+          
           router.push("/login");
         } else {
           setProfile({
+            id: data.id,
             name: data.name,
             email: data.email,
             items: data.items || [],
@@ -94,10 +97,9 @@ export default function SellerDashboard() {
         </button>
       </div>
 
-      {/* Seller items */}
-      <SellerItems items={profile.items} />
+      <SellerItems items={profile.items} sellerId={String(profile.id)} />
 
-      {/* Seller stories */}
+  
       <SellerStory stories={profile.stories} />
     </div>
   );

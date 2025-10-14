@@ -2,7 +2,7 @@ import Search from "@/app/ui/Search";
 import { fetchItemsAmount } from "@/app/lib/data";
 import ItemsGrid from "@/app/ui/catalog/itemsGrid";
 import Pagination from "@/app/ui/Pagination";
-import Link from "next/link";
+
 
 export default async function CatalogPage(props: {
     searchParams?:Promise<{
@@ -20,11 +20,7 @@ export default async function CatalogPage(props: {
             <div className="grid grid-cols-2 mb-[2.5rem]">
                 <div>
                     <h1 className="text-[2.5rem] font-bold text-black">Catalog</h1>
-                    <Link href={"/catalog/new-item"}>
-                        <button
-                            className="text-black border border-[var(--primary)] bg-[var(--primary)] px-5 py-1 rounded-md hover:cursor-pointer hover:brightness-80"
-                        >Create Item</button>
-                    </Link>
+                    
                 </div>
                 <div className="flex items-center">
                     <Search placeholder="search items..." />

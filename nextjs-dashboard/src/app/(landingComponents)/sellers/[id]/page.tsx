@@ -22,7 +22,7 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
       <div className="seller-profile-card">
         <div className="seller-header">
           <Image
-            src={seller.avatarUrl ?? '/images/spoons.webp'}
+            src={seller.avatarUrl || "/images/spoons.webp"}
             alt={seller.name}
             className="seller-profile-avatar"
             width={120}

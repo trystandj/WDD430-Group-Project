@@ -5,7 +5,7 @@ import clientPromise from "../../lib/mongodb";
 
 export async function POST(req: Request) {
   try {
-     console.log("JWT_SECRET:", process.env.JWT_SECRET);
+     
     const { email, password } = await req.json();
     if (!email || !password) {
       return NextResponse.json({ message: "Missing fields" }, { status: 400 });
@@ -32,7 +32,7 @@ export async function POST(req: Request) {
       { expiresIn: "1d" }
     );
 
-    console.log("Generated token:", token);
+ 
 
     return NextResponse.json({
       message: "Login successful",

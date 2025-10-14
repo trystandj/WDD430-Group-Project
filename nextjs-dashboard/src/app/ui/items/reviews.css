@@ -184,6 +184,19 @@
   }
 }
 
+
+
+.login-to-review a {
+  color: var(--primary, #2563eb);
+  text-decoration: underline;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.login-to-review a:hover {
+  color: var(--primary-dark, #1e40af);
+}
+
 /* Make sure login button inside leave-review is visible on mobile */
 .login-button {
   display: inline-block !important;

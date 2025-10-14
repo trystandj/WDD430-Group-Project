@@ -26,7 +26,7 @@ export default async function SellersPage() {
             >
               <div className="seller-content">
                 <Image
-                  src={seller.avatarUrl ?? '/images/spoons.webp'}
+                  src={seller.avatarUrl || "/images/spoons.webp"}
                   alt={seller.name}
                   className="seller-avatar"
                   width={80}

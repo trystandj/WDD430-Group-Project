@@ -6,7 +6,7 @@ import { SellerProfile, SellerItem } from '@/app/lib/definitions'
 import ReviewsClient from '@/app/components/[reviews]/ReviewsClient'
 import ReviewForm from '@/app/components/[reviews]/reviewForm'
 
-export default function ItemDetail({ item, seller, userId = null, username = null }: { item: SellerItem; seller: SellerProfile | null; userId?: string | null; username?: string | null }) {
+export default function ItemDetail({ item, seller }: { item: SellerItem; seller: SellerProfile | null }) {
   return (
     <main className="seller-detail-page item-page-container">
       <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'flex-start' }}>
@@ -16,7 +16,7 @@ export default function ItemDetail({ item, seller, userId = null, username = nul
             {seller && (
               <div className="seller-float">
                 <div className="seller-compact-card">
-                  <Image src={seller.avatarUrl ?? '/images/spoons.webp'} alt={seller.name} className="seller-profile-avatar" width={40} height={40} />
+                  <Image src={seller.avatarUrl || "/images/spoons.webp"} alt={seller.name} className="seller-profile-avatar" width={40} height={40} />
                   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                     <span className="seller-compact-name">{seller.name}</span>
                     <Link href={`/sellers/${seller.id}`} className="seller-compact-button">View Seller</Link>
@@ -58,13 +58,12 @@ export default function ItemDetail({ item, seller, userId = null, username = nul
           </div>
 
           <div className="leave-review-section" style={{ marginTop: '2rem' }}>
-            <ReviewForm productId={String(item.id)} itemId={item.id} sellerId={seller?.id} userId={userId} username={username} />
+            <ReviewForm productId={String(item.id)} itemId={item.id} sellerId={seller?.id} />
           </div>
 
           <hr className="reviews-divider" />
 
           <div className="reviews-section">
-
             <ReviewsClient productId={String(item.id)} itemId={item.id} />
           </div>
         </div>
