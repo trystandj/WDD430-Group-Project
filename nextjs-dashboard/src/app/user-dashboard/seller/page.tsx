@@ -99,7 +99,7 @@ export default function UserDashboard() {
 
   const handleLogout = () => {
     localStorage.clear();
-    router.push("/login");
+        window.location.href = "/";
   };
 
     const [newStory, setNewStory] = useState({ title: "", content: "" });

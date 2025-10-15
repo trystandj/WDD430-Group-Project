@@ -50,12 +50,8 @@ export default function UserDashboard() {
   }, [router]);
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("userRole");
-    localStorage.removeItem("userName");
          localStorage.clear();
      
-    router.push("/login");
     window.location.href = "/";
     
   };

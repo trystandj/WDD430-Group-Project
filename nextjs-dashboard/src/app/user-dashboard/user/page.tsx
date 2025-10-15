@@ -70,7 +70,7 @@ export default function UserDashboard() {
 
   const handleLogout = () => {
     localStorage.clear();
-    router.push("/login");
+        window.location.href = "/";
   };
 
   if (loading || !profile) return <p>Loading...</p>;

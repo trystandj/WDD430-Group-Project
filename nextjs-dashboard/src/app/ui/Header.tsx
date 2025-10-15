@@ -9,16 +9,17 @@ import { useState, useEffect } from "react";
 interface NavigationProps {
   mobile: boolean;
   dashboardPath: string;
+  isLoggedIn: boolean;
 }
 
-function Navigation({ mobile, dashboardPath }: NavigationProps) {
+function Navigation({ mobile, dashboardPath, isLoggedIn }: NavigationProps) {
   return (
     <div className={styles.linksContainer}>
       <nav className={clsx(mobile ? styles.linksMobile : styles.links)}>
         <Link href="/">Home</Link>
         <Link href="/sellers">Sellers</Link>
         <Link href="/catalog">Catalog</Link>
-        {mobile && <Link href={dashboardPath}>Profile</Link>}
+        {mobile && <Link href={dashboardPath}>{isLoggedIn ? "Profile" : "Login"}</Link>}
       </nav>
     </div>
   );
@@ -27,14 +28,17 @@ function Navigation({ mobile, dashboardPath }: NavigationProps) {
 export default function Header() {
   const [visible, setVisible] = useState(false);
   const [dashboardPath, setDashboardPath] = useState("/login");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const updateDashboardPath = () => {
     const token = localStorage.getItem("token");
     if (!token) {
       setDashboardPath("/login");
+      setIsLoggedIn(false);
       return;
     }
 
+    setIsLoggedIn(true);
     const role = localStorage.getItem("userRole");
     if (role === "seller") setDashboardPath("/user-dashboard/seller");
     else if (role === "user") setDashboardPath("/user-dashboard/user");
@@ -52,7 +56,6 @@ export default function Header() {
     <header className={clsx(styles.container, "z-50")}>
       <div>
         <Link href="/">
-
           <Image 
             src="/logo.png"
             alt="Hero image"
@@ -64,13 +67,15 @@ export default function Header() {
         </Link>
       </div>
 
-      <Navigation mobile={false} dashboardPath={dashboardPath} />
+      <Navigation mobile={false} dashboardPath={dashboardPath} isLoggedIn={isLoggedIn} />
 
-      {visible && <Navigation mobile={true} dashboardPath={dashboardPath} />}
+      {visible && <Navigation mobile={true} dashboardPath={dashboardPath} isLoggedIn={isLoggedIn} />}
 
       <div>
         <Link href={dashboardPath}>
-          <button className={styles.button}>Profile</button>
+          <button className={styles.button}>
+            {isLoggedIn ? "Profile" : "Login"}
+          </button>
         </Link>
 
         <button

@@ -26,11 +26,11 @@ export default function ItemDetail({ item, seller }: { item: SellerItem; seller:
             )}
           </div>
 
-          <Link href={`/catalog/${item.id}/edit`} className="flex justify-end p-3">
+          {/* <Link href={`/catalog/${item.id}/edit`} className="flex justify-end p-3">
               <button
                 className="text-black border border-[var(--primary)] bg-[var(--primary)] px-5 py-1 rounded-md hover:cursor-pointer hover:brightness-80"
               >Edit Item</button>
-            </Link>
+            </Link> */}
 
           <div className="seller-profile-card item-image-wrapper">
             <Image
@@ -43,19 +43,19 @@ export default function ItemDetail({ item, seller }: { item: SellerItem; seller:
             />
           </div>
 
-          <div className="items-section" style={{ marginTop: '1rem' }}>
-            <h2 className="items-section-title">Item Details</h2>
-            <p className="item-description" style={{ marginTop: '0.5rem' }}>{item.description}</p>
-            <p className="item-price" style={{ marginTop: '0.5rem', fontWeight: 700, textAlign: 'center' }}>Price: ${item.price.toFixed(2)}</p>
-            {seller && (
-              <div className="seller-below" style={{ marginTop: '0.75rem' }}>
-                <Link href={`/sellers/${seller.id}`} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  <Image src={seller.avatarUrl ?? '/images/spoons.webp'} alt={seller.name} className="seller-profile-avatar" width={40} height={40} />
-                  <span className="seller-compact-name">{seller.name}</span>
-                </Link>
-              </div>
-            )}
-          </div>
+            <div className="items-section" style={{ marginTop: '1rem' }}>
+              <h2 className="items-section-title">Item Details</h2>
+              <p className="item-description" style={{ marginTop: '0.5rem' }}>{item.description}</p>
+              <p className="item-price" style={{ marginTop: '0.5rem', fontWeight: 700, textAlign: 'center' }}>Price: ${item.price.toFixed(2)}</p>
+              {seller && (
+                <div className="seller-below" style={{ marginTop: '0.75rem' }}>
+                  <Link href={`/sellers/${seller.id}`} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <Image src={seller.avatarUrl || '/images/spoons.webp'} alt={seller.name} className="seller-profile-avatar" width={40} height={40} />
+                    <span className="seller-compact-name">{seller.name}</span>
+                  </Link>
+                </div>
+              )}
+            </div>
 
           <div className="leave-review-section" style={{ marginTop: '2rem' }}>
             <ReviewForm productId={String(item.id)} itemId={item.id} sellerId={seller?.id} />

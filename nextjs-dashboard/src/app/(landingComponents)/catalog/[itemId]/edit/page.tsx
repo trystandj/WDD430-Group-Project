@@ -8,7 +8,6 @@ export default async function EditItemPage({ params }: { params: { itemId: strin
     const sellers = await fetchSellerProfiles();
     const item = await fetchItemById(itemId);
 
-
     const safeSellers = sellers.map(s => ({
         ...s,
         _id: s?._id?.toString() ?? "",
@@ -16,6 +15,10 @@ export default async function EditItemPage({ params }: { params: { itemId: strin
         joinedAt: s.joinedAt?.toISOString() ?? null
     }));
 
+    const safeItem = item ? {
+    ...item,
+    createdAt: item.createdAt ? new Date(item.createdAt) : new Date()
+    } : null;
 
     async function handleSubmit(formData: FormData) {
         "use server";
@@ -36,19 +39,16 @@ export default async function EditItemPage({ params }: { params: { itemId: strin
         redirect(`/catalog/${newItemId}`);
     }
 
-
-
     return (
         <div className="w-full max-w-[1200px] mx-auto p-[2rem]">
-            <h2 className="login-title">Edit Item</h2>
             {
-                item && (
+                safeItem && (
                     <ItemForm
                         submit={handleSubmit}
                         sellers={safeSellers as unknown as Array<SellerProfile>}
-                        item={item}
+                        item={safeItem}
                         submitText="Update Item"
-                        />
+                    />
                 )
             }
         </div>
