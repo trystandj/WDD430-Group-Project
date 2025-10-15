@@ -113,33 +113,55 @@ export async function fetchItemsAmount(
   }
 }
 
+
+
+
 export async function fetchSellerItems(
-  title: string = "",
-  page: number = 1,
-  limit: number = 9
-): Promise<SellerItem[]> {
-  try {
-    console.log("Fetching seller items...");
+    query: string, 
+    currentPage: number,
+    minPrice?: number,
+    maxPrice?: number,
+    sellerId?: number
+) {
+    const ITEMS_PER_PAGE = 9;
+    const offset = (currentPage - 1) * ITEMS_PER_PAGE;
+    
+    interface MongoFilter {
+        $or?: Array<{ title?: { $regex: string; $options: string }; description?: { $regex: string; $options: string } }>;
+        price?: {
+            $gte?: number;
+            $lte?: number;
+        };
+        sellerId?: number;
+    }
+    
+    const filter: MongoFilter = {};
+
+    if (query) {
+        filter.$or = [
+            { title: { $regex: query, $options: 'i' } },
+            { description: { $regex: query, $options: 'i' } }
+        ];
+    }
+
+    if (minPrice !== undefined || maxPrice !== undefined) {
+        filter.price = {};
+        if (minPrice !== undefined) filter.price.$gte = minPrice;
+        if (maxPrice !== undefined) filter.price.$lte = maxPrice;
+    }
+    
+    if (sellerId !== undefined) {
+        filter.sellerId = sellerId;
+    }
+    
     const collection = await getItemsCollection();
-
-    const query = title
-      ? { title: { $regex: title, $options: "i" } }
-      : {};
-
-    const skip = (page - 1) * limit;
-
     const items = await collection
-      .find(query)
-      .skip(skip)
-      .limit(limit)
-      .toArray();
-
-    console.log(`Fetched ${items.length} items.`);
+        .find(filter)
+        .skip(offset)
+        .limit(ITEMS_PER_PAGE)
+        .toArray();
+    
     return items;
-  } catch (error) {
-    console.error("Database Error:", error);
-    throw new Error("Failed to fetch seller items.");
-  }
 }
 
 

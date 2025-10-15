@@ -398,3 +398,145 @@ footer p {
   background-color: var(--third);
   color: var(--fifth);
 }
+
+
+/* Price Filter Styles */
+.price-filter-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: var(--fourth);
+  border-radius: 8px;
+  border: 1px solid var(--secondary);
+}
+
+.price-filter-label {
+  font-weight: 600;
+  color: var(--fifth);
+}
+
+.price-filter-input-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.price-filter-input-label {
+  font-size: 0.875rem;
+  color: var(--fifth);
+}
+
+.price-filter-input {
+  width: 6rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--secondary);
+  border-radius: 4px;
+  outline: none;
+  font-size: 0.875rem;
+  background: white;
+  color: var(--fifth);
+}
+
+.price-filter-input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(115, 160, 115, 0.2);
+}
+
+.price-filter-apply-button {
+  padding: 0.5rem 1rem;
+  background: var(--primary);
+  color: white;
+  border-radius: 4px;
+  border: none;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.price-filter-apply-button:hover {
+  opacity: 0.9;
+}
+
+.price-filter-clear-button {
+  padding: 0.5rem 1rem;
+  background: var(--secondary);
+  color: var(--fifth);
+  border-radius: 4px;
+  border: none;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.price-filter-clear-button:hover {
+  opacity: 0.9;
+}
+
+.seller-filter-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: var(--fourth);
+  border-radius: 8px;
+  border: 1px solid var(--secondary);
+}
+
+.seller-filter-label {
+  font-weight: 600;
+  color: var(--fifth);
+}
+
+.seller-filter-select-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.seller-filter-select {
+  min-width: 200px;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--secondary);
+  border-radius: 4px;
+  outline: none;
+  font-size: 0.875rem;
+  background: white;
+  cursor: pointer;
+  color: var(--fifth);
+}
+
+.seller-filter-select:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(115, 160, 115, 0.2);
+}
+
+.seller-filter-apply-button {
+  padding: 0.5rem 1rem;
+  background: var(--primary);
+  color: white;
+  border-radius: 4px;
+  border: none;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.seller-filter-apply-button:hover {
+  opacity: 0.9;
+}
+
+.seller-filter-clear-button {
+  padding: 0.5rem 1rem;
+  background: var(--secondary);
+  color: var(--fifth);
+  border-radius: 4px;
+  border: none;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.seller-filter-clear-button:hover {
+  opacity: 0.9;
+}

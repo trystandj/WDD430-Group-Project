@@ -1,16 +1,21 @@
 import { fetchSellerItems } from "@/app/lib/data";
 import Card from "@/app/ui/card/Card";
 
-
-export default async function ItemsGrid ({
+export default async function ItemsGrid({
     query,
-    currentPage
+    currentPage,
+    minPrice,
+    maxPrice,
+    sellerId
 }: {
     query: string;
     currentPage: number;
+    minPrice?: number;
+    maxPrice?: number;
+    sellerId?: number;
 }) {
-    const items = await fetchSellerItems(query, currentPage);
-
+    const items = await fetchSellerItems(query, currentPage, minPrice, maxPrice, sellerId);
+ 
     return (
         <div className="text-black m-auto grid gap-[1rem] md:grid-cols-3" id="sellers-container">
             {
@@ -21,9 +26,9 @@ export default async function ItemsGrid ({
                             tags={item.tags}
                             price={item.price}
                             images={[{
-                            src:  item.imageUrl || "https://i0.wp.com/enfermeriacreativa.com/wp-content/uploads/2019/07/placeholder.png?ssl=1",
-                            link: `/catalog/${item.id}`
-                        }]}>
+                                src: item.imageUrl || "https://i0.wp.com/enfermeriacreativa.com/wp-content/uploads/2019/07/placeholder.png?ssl=1",
+                                link: `/catalog/${item.id}`
+                            }]}>
                             <div className="">
                                 <p>$ <span>{item.price}</span></p>
                                 <div className="flex flex-wrap gap-[0.25rem]">
