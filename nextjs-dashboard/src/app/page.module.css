@@ -97,28 +97,6 @@ a.secondary {
   align-items: center;
 }
 
-.footer_doc {
-  order: 1;
-  display: flex;
-  gap: 24px;
-}
-
-.footer_copyright {
-  order: 2;
-  text-align: center;
-  padding: 10px;
-}
-
-.footer_doc a {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.footer_doc img {
-  flex-shrink: 0;
-}
-
 /* Enable hover only on non-touch devices */
 @media (hover: hover) and (pointer: fine) {
   a.primary:hover {
@@ -131,10 +109,7 @@ a.secondary {
     border-color: transparent;
   }
 
-  .footer_doc a:hover {
-    text-decoration: underline;
-    text-underline-offset: 4px;
-  }
+  /* footer link hover styles removed */
 }
 
 @media (max-width: 600px) {
@@ -165,11 +140,7 @@ a.secondary {
     min-width: auto;
   }
 
-  .footer_doc {
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-  }
+  /* footer_doc layout removed */
 }
 
 @media (prefers-color-scheme: dark) {

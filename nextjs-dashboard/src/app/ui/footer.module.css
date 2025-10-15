@@ -1,0 +1,31 @@
+.footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px 0;
+}
+
+.footer_doc {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+}
+
+.footer_link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: inherit;
+}
+
+.footer_copyright {
+  text-align: center;
+  padding: 8px 0;
+}
+
+@media (max-width: 600px) {
+  .footer_doc {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}

@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import ClientWrapper from "./ui/components/ClientWrapper";
 import "./globals.css";
 import Header from "./ui/Header";
+import Footer from './ui/Footer'
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,8 +27,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         className={`${geistSans.variable} ${geistMono.variable} flex flex-col min-h-screen`}
       >
         <Header />
-        {/* Client-side wrapper for footer & route-dependent logic */}
-        <ClientWrapper>{children}</ClientWrapper>
+  {/* Client-side wrapper for route-dependent logic */}
+  <ClientWrapper>{children}</ClientWrapper>
+  <Footer />
       </body>
     </html>
   );
